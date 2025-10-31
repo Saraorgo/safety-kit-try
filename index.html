@@ -459,8 +459,6 @@
         }
     </style>
     
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     <script>
         // Sound effects using Web Audio API
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -473,7 +471,7 @@
         // Text-to-speech voice reader
         let isVoiceReading = false;
         let currentUtterance = null;
-        let currentLanguage = 'es';
+        let currentLanguage = 'es-ES';
         
         // Comprehensive translation dictionary
         const translations = {
@@ -636,7 +634,7 @@
                 btnCurrent: "🎯 Phase Actuelle",
                 btnShuffle: "🔀 Mélanger",
                 recognitionTitle: "💌 Tableau de Reconnaissance",
-                recognitionDesc: "À la fin de la réunion, écrivez un petit remerciement. Les petits gestes renforcent la confiance et l'esprit d'équipe.",
+                recognitionDesc: "À la fin de la réunion, écrivez un petit remerciement. Les petits gestos renforcent la confiance et l'esprit d'équipe.",
                 recognitionPlaceholder: 'Ex: "Merci d\'avoir écouté patiemment"',
                 addBtn: "Ajouter 💚",
                 deleteBtn: "🗑️ Supprimer",
@@ -851,13 +849,25 @@
                 btn.textContent = t.deleteBtn;
             });
             
-            currentLanguage = lang;
-            updateVoiceLanguage(lang);
+            currentLanguage = getLanguageCode(lang);
             
             setTimeout(() => {
                 showNotification('✅ ' + (lang === 'es' ? 'Traducción completada' : lang === 'en' ? 'Translation completed' : lang === 'pt' ? 'Tradução concluída' : lang === 'fr' ? 'Traduction terminée' : lang === 'de' ? 'Übersetzung abgeschlossen' : lang === 'ja' ? '翻訳完了' : '翻译完成'));
                 playSound('success');
             }, 500);
+        }
+        
+        function getLanguageCode(lang) {
+            const langMap = {
+                'es': 'es-ES',
+                'en': 'en-US',
+                'pt': 'pt-BR',
+                'fr': 'fr-FR',
+                'de': 'de-DE',
+                'ja': 'ja-JP',
+                'zh': 'zh-CN'
+            };
+            return langMap[lang] || 'es-ES';
         }
         
         function toggleLanguageMenu() {
@@ -880,20 +890,6 @@
             translatePage(lang);
         }
         
-        function updateVoiceLanguage(lang) {
-            const langMap = {
-                'es': 'es-ES',
-                'en': 'en-US',
-                'pt': 'pt-BR',
-                'fr': 'fr-FR',
-                'de': 'de-DE',
-                'ja': 'ja-JP',
-                'zh': 'zh-CN'
-            };
-            
-            currentLanguage = langMap[lang] || 'es-ES';
-        }
-        
         // Close language menu when clicking outside
         document.addEventListener('click', function(event) {
             const menu = document.getElementById('languageMenu');
@@ -909,7 +905,7 @@
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = currentLanguage; // Use current selected language
+                utterance.lang = currentLanguage;
                 utterance.rate = 0.9; // Slightly slower for clarity
                 utterance.pitch = 1;
                 utterance.volume = 0.8;
@@ -931,41 +927,6 @@
                 
                 const icon = document.getElementById('voiceIcon');
                 if (icon) icon.classList.add('speaking');
-            }
-        }
-            if (!menu.contains(event.target) && event.target !== icon) {
-                menu.classList.remove('active');
-            }
-        });
-        
-        function speakText(text) {
-            if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = currentLanguage; // Use current selected language
-                utterance.rate = 0.9; // Slightly slower for clarity
-                utterance.pitch = 1;
-                utterance.volume = 0.8;
-                
-                // Try to find a voice in the current language
-                const voices = window.speechSynthesis.getVoices();
-                const matchingVoice = voices.find(voice => voice.lang.startsWith(currentLanguage.split('-')[0]));
-                if (matchingVoice) {
-                    utterance.voice = matchingVoice;
-                }
-                
-                utterance.onend = function() {
-                    const icon = document.getElementById('voiceIcon');
-                    icon.classList.remove('speaking');
-                };
-                
-                currentUtterance = utterance;
-                window.speechSynthesis.speak(utterance);
-                
-                const icon = document.getElementById('voiceIcon');
-                icon.classList.add('speaking');
             }
         }
         
@@ -1303,16 +1264,10 @@
         let firebaseInitialized = false;
         
         try {
-            if (typeof firebase !== 'undefined') {
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                database = firebase.database();
-                firebaseInitialized = true;
-                console.log('Firebase initialized successfully');
-            } else {
-                console.error('Firebase library not loaded');
-            }
+            // Firebase initialization removed for this demo
+            // In a real implementation, you would initialize Firebase here
+            console.log('Firebase would be initialized here in a real implementation');
+            firebaseInitialized = false; // Set to false for demo purposes
         } catch (e) {
             console.error("Firebase initialization error:", e);
         }
@@ -1396,36 +1351,15 @@
         }
         
         async function loadRecognitions() {
-            if (!firebaseInitialized || !database) {
-                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">⚠️ Conectando con la base de datos...</div>';
-                // Retry after 2 seconds
-                setTimeout(() => {
-                    if (firebaseInitialized && database) {
-                        loadRecognitions();
-                    } else {
-                        document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">❌ No se pudo conectar. Recarga la página.</div>';
-                    }
-                }, 2000);
-                return;
+            // For demo purposes, we'll use localStorage instead of Firebase
+            const storedRecognitions = localStorage.getItem('takedaRecognitions');
+            let items = [];
+            
+            if (storedRecognitions) {
+                items = JSON.parse(storedRecognitions);
             }
             
-            try {
-                const ref = database.ref('recognitions');
-                ref.orderByChild('timestamp').limitToLast(50).on('value', (snapshot) => {
-                    const items = [];
-                    snapshot.forEach((childSnapshot) => {
-                        items.push({
-                            key: childSnapshot.key,
-                            data: childSnapshot.val()
-                        });
-                    });
-                    items.reverse(); // Most recent first
-                    displayRecognitions(items);
-                });
-            } catch (e) {
-                console.error('Error loading:', e);
-                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">❌ Error al cargar reconocimientos</div>';
-            }
+            displayRecognitions(items);
         }
         
         function displayRecognitions(items) {
@@ -1435,18 +1369,18 @@
                 return;
             }
             list.innerHTML = '';
-            items.forEach(item => {
+            items.forEach((item, index) => {
                 const div = document.createElement('div');
                 div.className = 'recognition-item';
                 const text = document.createElement('span');
                 text.className = 'recognition-text';
-                text.textContent = item.data.emoji + ' "' + item.data.text + '"';
+                text.textContent = item.emoji + ' "' + item.text + '"';
                 const btn = document.createElement('button');
                 btn.className = 'delete-btn';
                 btn.textContent = '🗑️ Eliminar';
                 btn.onclick = () => {
                     playSound('delete');
-                    deleteRecognition(item.key);
+                    deleteRecognition(index);
                 };
                 div.appendChild(text);
                 div.appendChild(btn);
@@ -1459,11 +1393,6 @@
             const text = input.value.trim();
             if (!text) return;
             
-            if (!firebaseInitialized || !database) {
-                showNotification('❌ Base de datos no disponible. Recarga la página.');
-                return;
-            }
-            
             const btn = document.getElementById('addBtn');
             btn.disabled = true;
             
@@ -1471,16 +1400,26 @@
                 const emojis = ['💚', '✨', '🌟', '💫', '🙌', '👏', '💙', '🎯'];
                 const emoji = emojis[Math.floor(Math.random() * emojis.length)];
                 
-                const ref = database.ref('recognitions');
-                await ref.push({
+                // Get existing recognitions
+                const storedRecognitions = localStorage.getItem('takedaRecognitions');
+                let items = storedRecognitions ? JSON.parse(storedRecognitions) : [];
+                
+                // Add new recognition
+                items.push({
                     text: text,
                     emoji: emoji,
                     timestamp: Date.now()
                 });
                 
+                // Save back to localStorage
+                localStorage.setItem('takedaRecognitions', JSON.stringify(items));
+                
                 input.value = '';
                 playSound('success');
                 showNotification('✅ Reconocimiento agregado');
+                
+                // Refresh the list
+                loadRecognitions();
             } catch (e) {
                 showNotification('❌ Error al guardar');
                 console.error('Error:', e);
@@ -1489,16 +1428,22 @@
             }
         }
         
-        async function deleteRecognition(key) {
-            if (!firebaseInitialized || !database) {
-                showNotification('❌ Base de datos no disponible');
-                return;
-            }
-            
+        async function deleteRecognition(index) {
             try {
-                const ref = database.ref('recognitions/' + key);
-                await ref.remove();
+                // Get existing recognitions
+                const storedRecognitions = localStorage.getItem('takedaRecognitions');
+                let items = storedRecognitions ? JSON.parse(storedRecognitions) : [];
+                
+                // Remove the item at the specified index
+                items.splice(index, 1);
+                
+                // Save back to localStorage
+                localStorage.setItem('takedaRecognitions', JSON.stringify(items));
+                
                 showNotification('🗑️ Eliminado');
+                
+                // Refresh the list
+                loadRecognitions();
             } catch (e) {
                 showNotification('❌ Error al eliminar');
                 console.error('Error:', e);
@@ -1553,3 +1498,4 @@
     </script>
 </body>
 </html>
+
