@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit de Seguridad Psicológica Virtual - Takeda</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 20px; }
+        .hero-boat { width: 100%; max-width: 500px; margin: 10px auto 20px; padding: 30px; background: linear-gradient(135deg, #e8f4f8 0%, #b8dde6 50%, #7ec8d3 100%); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .simple-boat { font-size: 5em; animation: floating 3s ease-in-out infinite; text-align: center; }
+        @keyframes floating { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+        .boat-text { text-align: center; color: #5a6c7d; margin-top: 15px; }
+        h1 { color: #2c3e50; font-size: 2em; margin-bottom: 8px; }
+        .subtitle { color: #5a6c7d; margin-bottom: 20px; }
+        .meeting-phase, .voice-meter, .quick-actions, .truth-cards-section { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .phase-selector { display: flex; gap: 10px; flex-wrap: wrap; }
+        .phase-btn { flex: 1; min-width: 150px; padding: 15px 20px; border: 3px solid transparent; border-radius: 12px; font-size: 1em; font-weight: bold; cursor: pointer; background: #f8f9fa; color: #5a6c7d; transition: all 0.3s; }
+        .phase-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .phase-btn.active { transform: scale(1.05); }
+        .phase-btn.inicio.active { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .phase-btn.durante.active { background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%); color: #333; }
+        .phase-btn.cierre.active { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .interactive-workspace { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .color-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .voice-card { padding: 25px 15px; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; border: 3px solid transparent; }
+        .voice-card:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .voice-card.selected { transform: scale(1.08); border-width: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .voice-card.green { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .voice-card.green.selected { border-color: #56ab2f; }
+        .voice-card.yellow { background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%); color: #333; }
+        .voice-card.yellow.selected { border-color: #f7b733; }
+        .voice-card.orange { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white; }
+        .voice-card.orange.selected { border-color: #ff6b35; }
+        .card-icon { font-size: 2.5em; margin-bottom: 10px; }
+        .card-title { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
+        .card-desc { font-size: 0.85em; }
+        .action-btn { width: 100%; padding: 18px; margin-bottom: 12px; border: none; border-radius: 12px; font-size: 1em; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .action-btn:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .action-btn.spray { background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%); color: #2c3e50; }
+        .action-btn.faro { background: linear-gradient(135deg, #a8322d 0%, #d66860 100%); color: white; }
+        
+        /* Floating music icon */
+        .music-float-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 3px solid white;
+        }
+        
+        .music-float-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        .music-float-icon.playing {
+            animation: musicPulse 1.5s ease-in-out infinite;
+            background: linear-gradient(135deg, #19547b 0%, #ffd89b 100%);
+        }
+        
+        /* Floating voice icon */
+        .voice-float-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 110px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 3px solid white;
+        }
+        
+        .voice-float-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        .voice-float-icon.speaking {
+            animation: voicePulse 0.8s ease-in-out infinite;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        
+        @keyframes voicePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        
+        /* Language selector icon */
+        .language-float-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 190px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 3px solid white;
+        }
+        
+        .language-float-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        .language-menu {
+            position: fixed;
+            bottom: 100px;
+            right: 190px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 15px;
+            display: none;
+            z-index: 999;
+            min-width: 200px;
+        }
+        
+        .language-menu.active {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .language-option {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        
+        .language-option:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+        
+        .language-option.selected {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .music-float-icon { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 1.5em; }
+            .voice-float-icon { bottom: 20px; right: 85px; width: 50px; height: 50px; font-size: 1.5em; }
+            .language-float-icon { bottom: 20px; right: 150px; width: 50px; height: 50px; font-size: 1.5em; }
+            .language-menu { bottom: 80px; right: 150px; min-width: 180px; }
+        }
+        .action-btn.bloom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .mode-btn { padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-weight: 600; color: #5a6c7d; transition: all 0.3s; }
+        .mode-btn:hover { transform: translateY(-2px); }
+        .mode-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .questions-grid { display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .question-card { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 25px; border-radius: 12px; cursor: pointer; transition: all 0.4s; position: relative; border: 2px solid transparent; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 500; }
+        .question-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; }
+        .question-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .question-card.inicio::before { background: linear-gradient(180deg, #56ab2f 0%, #a8e063 100%); }
+        .question-card.inicio:hover { border-color: #56ab2f; background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%); }
+        .question-card.durante::before { background: linear-gradient(180deg, #f7b733 0%, #ffd93d 100%); }
+        .question-card.durante:hover { border-color: #f7b733; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); }
+        .question-card.cierre::before { background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%); }
+        .question-card.cierre:hover { border-color: #4facfe; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); }
+        .question-phase-badge { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 20px; font-size: 0.75em; font-weight: bold; text-transform: uppercase; }
+        .question-phase-badge.inicio { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .question-phase-badge.durante { background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%); color: #333; }
+        .question-phase-badge.cierre { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .recognition-section { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 15px; padding: 30px; color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .shared-notice { background: rgba(255,255,255,0.2); padding: 12px 18px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9em; }
+        .recognition-input-group { display: flex; gap: 10px; margin-bottom: 25px; }
+        .recognition-input-group input { flex: 1; padding: 15px; border: none; border-radius: 10px; font-size: 1em; }
+        .recognition-input-group button { padding: 15px 30px; background: white; color: #4facfe; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .recognition-input-group button:hover:not(:disabled) { transform: scale(1.05); }
+        .recognition-input-group button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .recognition-list { display: grid; gap: 12px; max-height: 400px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .recognition-item { background: rgba(255,255,255,0.2); padding: 18px; border-radius: 10px; border-left: 4px solid white; display: flex; justify-content: space-between; align-items: center; gap: 15px; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        .recognition-text { flex: 1; word-break: break-word; }
+        .delete-btn { background: #e74c3c; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s; white-space: nowrap; }
+        .delete-btn:hover:not(:disabled) { background: #c0392b; transform: scale(1.08); }
+        .delete-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 20px; padding: 40px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .modal-content h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.8em; }
+        .modal-content h4 { color: #2c3e50; margin-top: 20px; margin-bottom: 10px; }
+        .modal-content p { color: #5a6c7d; line-height: 1.8; margin-bottom: 15px; }
+        .modal-content .kit-item { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid #4facfe; }
+        .close-modal { background: #e74c3c; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
+        .close-modal:hover { background: #c0392b; transform: scale(1.05); }
+        .spray-effect { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10em; opacity: 0; pointer-events: none; transition: all 1.5s; z-index: 999; width: 100%; max-width: 300px; display: flex; justify-content: center; align-items: center; }
+        .spray-effect.active { opacity: 0.4; }
+        .spray-message { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(168, 230, 207, 0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: all 0.5s; z-index: 998; text-align: center; max-width: 500px; width: 90%; }
+        .spray-message.active { opacity: 1; }
+        .spray-message h3 { color: #2c3e50; margin-bottom: 10px; font-size: 1.3em; }
+        .spray-message p { color: #5a6c7d; font-size: 0.95em; }
+        @media (max-width: 1024px) { 
+            .interactive-workspace { grid-template-columns: 1fr; } 
+            .questions-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+        @media (max-width: 768px) { 
+            .color-cards-grid { grid-template-columns: 1fr; } 
+            .phase-selector { flex-direction: column; }
+            .questions-grid { grid-template-columns: 1fr; }
+            .recognition-item { flex-direction: column; align-items: flex-start; }
+            .delete-btn { align-self: flex-end; width: 100%; margin-top: 10px; }
+            .modal-content { padding: 25px; max-height: 85vh; }
+            h1 { font-size: 1.5em; }
+            .hero-boat { padding: 20px; }
+            .simple-boat { font-size: 3.5em; }
+            .meeting-phase, .voice-meter, .quick-actions, .truth-cards-section, .recognition-section { padding: 20px; }
+            .recognition-input-group { flex-direction: column; }
+            .recognition-input-group button { width: 100%; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .phase-btn { min-width: 100px; padding: 12px 15px; font-size: 0.9em; }
+            .voice-card { padding: 20px 10px; }
+            .card-icon { font-size: 2em; }
+            .card-title { font-size: 1em; }
+            .action-btn { padding: 15px; font-size: 0.95em; }
+            .question-card { padding: 20px; min-height: 80px; font-size: 0.95em; }
+            .modal-content { padding: 20px; }
+            .modal-content h3 { font-size: 1.4em; }
+            .kit-item { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Kit de Seguridad Psicológica Virtual - Takeda</h1>
+            <p class="subtitle">Pequeños gestos para grandes conversaciones</p>
+            <div class="hero-boat">
+                <div class="simple-boat">⛵</div>
+                <p class="boat-text">Navegando juntos hacia conversaciones más seguras</p>
+            </div>
+        </header>
+        
+        <div class="meeting-phase" role="region" aria-label="Fase de la Reunión">
+            <h2 style="color: #2c3e50; margin-bottom: 10px;">📍 Fase de la Reunión</h2>
+            <p style="color: #5a6c7d; margin-bottom: 15px;">No tienes que usar todo a la vez — elige lo que el equipo necesite ese día</p>
+            <div class="phase-selector" role="group" aria-label="Seleccionar fase de la reunión">
+                <button class="phase-btn inicio active" onclick="setPhase('inicio')">🟢 Inicio</button>
+                <button class="phase-btn durante" onclick="setPhase('durante')">🟡 Durante</button>
+                <button class="phase-btn cierre" onclick="setPhase('cierre')">🔵 Cierre</button>
+            </div>
+        </div>
+        
+        <div class="interactive-workspace">
+            <div class="voice-meter" role="region" aria-label="Tarjetas de Colores">
+                <h2>🌈 Tarjetas de Colores</h2>
+                <p style="color: #5a6c7d; margin-bottom: 20px;">¿Quieres decir algo sin interrumpir? Usa una tarjeta para mantener la conversación fluida y respetuosa</p>
+                <div class="color-cards-grid" role="group" aria-label="Seleccionar tarjeta de color">
+                    <div class="voice-card green" onclick="selectVoiceCard(this, 'green')">
+                        <div class="card-icon">🟢</div>
+                        <div class="card-title">Verde</div>
+                        <div class="card-desc">Estoy escuchando atentamente</div>
+                    </div>
+                    <div class="voice-card yellow" onclick="selectVoiceCard(this, 'yellow')">
+                        <div class="card-icon">🟡</div>
+                        <div class="card-title">Amarillo</div>
+                        <div class="card-desc">Tengo una pregunta</div>
+                    </div>
+                    <div class="voice-card orange" onclick="selectVoiceCard(this, 'orange')">
+                        <div class="card-icon">🟠</div>
+                        <div class="card-title">Naranja</div>
+                        <div class="card-desc">Reformulemos esto</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions" role="region" aria-label="Acciones Rápidas">
+                <h2>⚡ Acciones Rápidas</h2>
+                <button class="action-btn spray" onclick="activateBreathing()" aria-label="Activar pausa de respiración guiada">🧘 Pausa de Respiración</button>
+                <button class="action-btn faro" onclick="showFaro()" aria-label="Abrir guía del faro">🌟 El Faro - Tu Guía</button>
+                <button class="action-btn bloom" onclick="showBloom()" aria-label="Acceder a recursos de Bloom">📱 Curso Bloom</button>
+            </div>
+        </div>
+        
+        <div class="truth-cards-section" role="region" aria-label="Cartas de la Verdad">
+            <h2>🃏 Cartas de la Verdad</h2>
+            <p style="color: #5a6c7d; margin-bottom: 15px;">Pequeñas frases para grandes conversaciones. Haz clic para copiar al portapapeles</p>
+            <div class="cards-display-mode" role="group" aria-label="Modo de visualización de cartas">
+                <button class="mode-btn active" onclick="setCardMode('all')">📚 Ver Todas</button>
+                <button class="mode-btn" onclick="setCardMode('current')">🎯 Fase Actual</button>
+                <button class="mode-btn" onclick="shuffleCards()">🔀 Mezclar</button>
+            </div>
+            <div id="questionsContainer" class="questions-grid"></div>
+        </div>
+        
+        <div class="recognition-section" role="region" aria-label="Tablero de Reconocimiento">
+            <h2>💌 Tablero de Reconocimiento</h2>
+            <p style="margin-bottom: 15px;">Al final de la reunión, escribe un pequeño agradecimiento. Pequeños gestos refuerzan la confianza y el sentido de equipo.</p>
+            <div class="recognition-input-group">
+                <input type="text" id="recognitionInput" placeholder='Ej: "Gracias por escuchar con paciencia"' maxlength="200" aria-label="Escribe tu reconocimiento aquí" />
+                <button id="addBtn" onclick="addRecognition()" aria-label="Agregar reconocimiento al tablero">Agregar 💚</button>
+            </div>
+            <div id="recognitionList" class="recognition-list" role="list" aria-label="Lista de reconocimientos">
+                <div style="text-align: center; padding: 20px;">⏳ Cargando...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="faroModal" class="modal">
+        <div class="modal-content">
+            <h3>🌟 El Faro: tu guía para crear espacios seguros</h3>
+            
+            <p><strong>¿Qué es El Faro?</strong><br>
+            Es una pequeña guía que te ayuda a recordar por qué existe el kit, cómo usarlo y cómo cada elemento puede ayudarte a cuidar la seguridad psicológica del grupo.</p>
+            
+            <h4>💬 ¿Por qué existe este kit?</h4>
+            <p>Porque en Takeda creemos que la seguridad psicológica no nace de grandes discursos, sino de pequeños gestos: cómo escuchamos, cómo preguntamos, y cómo damos espacio a las ideas de los demás.</p>
+            <p>Este kit está aquí para acompañarte en esos momentos, fortalecer la confianza y crear reuniones donde todos puedan hablar con libertad, respeto y serenidad.</p>
+            
+            <h4>🎁 ¿Qué contiene?</h4>
+            <p style="margin-bottom: 20px;">Cada elemento tiene un propósito especial:</p>
+            
+            <div class="kit-item">
+                <strong>🌈 Tarjetas de colores</strong><br>
+                ¿Quieres decir algo sin interrumpir? Usa una tarjeta. Te ayudan a mantener la conversación fluida y respetuosa.
+            </div>
+            
+            <div class="kit-item">
+                <strong>💌 Cartas de la verdad</strong><br>
+                ¿Sientes que tu equipo necesita reflexionar o empatizar? Elige una carta: cada una invita a pensar y conectar desde la emoción.
+            </div>
+            
+            <div class="kit-item">
+                <strong>⭐ Tablero de reconocimiento</strong><br>
+                ¿Quieres cerrar con gratitud? Escribe un agradecimiento o algo positivo que notaste durante la reunión. ¡Reconocer fortalece la confianza!
+            </div>
+            
+            <div class="kit-item">
+                <strong>📱 Tarjeta QR de Bloom</strong><br>
+                ¿Te gustaría seguir aprendiendo sobre seguridad psicológica? Escanéala y descubre más recursos e ideas.
+            </div>
+            
+            <div class="kit-item">
+                <strong>🧘 Pausa de Respiración</strong><br>
+                ¿Necesitas un momento para respirar antes de comenzar? Usa la pausa de respiración guiada para marcar el inicio y centrar la energía del grupo en el espacio virtual.
+            </div>
+            
+            <h4>🪄 ¿Cómo se usa?</h4>
+            <p style="margin-bottom: 20px;">Este kit está hecho para reuniones reales: cortas, con muchas ideas y poco tiempo.<br>
+            No tienes que usar todo a la vez —elige lo que el equipo necesite ese día—.</p>
+            
+            <p><strong>💭 ¿Vas a empezar una reunión?</strong><br>
+            Crea el ambiente. Usa la pausa de respiración para marcar el inicio y elige una carta con una pregunta o emoción.</p>
+            
+            <p><strong>👂 ¿Están en plena conversación?</strong><br>
+            Apóyate en las tarjetas de colores o en las cartas de la verdad. Sirven para expresar, pedir la palabra o aclarar ideas sin romper la armonía.</p>
+            
+            <p><strong>💖 ¿Es momento de cerrar?</strong><br>
+            Tómate un minuto para agradecer o reconocer algo positivo. Usa el tablero o una carta de cierre para reflexionar sobre lo aprendido.</p>
+            
+            <h4>💡 Recuerda</h4>
+            <p>Usar el kit no es cambiar la forma de trabajar, sino mejorar cómo nos escuchamos. Con el tiempo, estas pequeñas acciones hacen que las reuniones sean más seguras, más humanas y mucho más efectivas.</p>
+            
+            <button class="close-modal" onclick="closeModal('faroModal')">Cerrar</button>
+        </div>
+    </div>
+    
+    <div id="bloomModal" class="modal">
+        <div class="modal-content">
+            <h3>🎧 Seguridad Psicológica en Bloom</h3>
+            <p>Amplía tus conocimientos sobre seguridad psicológica con nuestros recursos y cursos en Bloom.</p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://takeda.edcast.com/smartsearch?q=Seguridad+psicologica" target="_blank" style="text-decoration: none;">
+                    <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4em; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">📚</div>
+                    <p style="margin-top: 20px; color: #667eea; font-weight: 600; font-size: 1.1em;">Haz clic para acceder a los recursos</p>
+                </a>
+            </div>
+            <p>Descubre herramientas, cursos y recursos para crear espacios donde todos se sientan seguros para compartir ideas y aprender de los errores.</p>
+            <button class="close-modal" onclick="closeModal('bloomModal')">Cerrar</button>
+        </div>
+    </div>
+    
+    <div class="spray-effect" id="breathingEffect">
+        <div style="width: 200px; height: 200px; background: radial-gradient(circle, #a8e6cf 0%, #56ab2f 100%); border-radius: 50%; animation: breathe 4s ease-in-out infinite;"></div>
+    </div>
+    <div class="spray-message" id="breathingMessage">
+        <h3>🧘 Pausa de Respiración</h3>
+        <p><strong>Inhala profundo... Exhala despacio...</strong></p>
+        <p style="font-style: italic; margin-top: 10px;">Tómate un momento para centrar tu energía</p>
+    </div>
+    
+    <!-- Floating music icon -->
+    <div class="music-float-icon" id="musicIcon" onclick="toggleBackgroundMusic()" title="Música Ambiental">
+        🎵
+    </div>
+    
+    <!-- Floating voice icon -->
+    <div class="voice-float-icon" id="voiceIcon" onclick="toggleVoiceReader()" title="Lector de Voz - Accesibilidad">
+        🔊
+    </div>
+    
+    <!-- Floating language icon -->
+    <div class="language-float-icon" id="languageIcon" onclick="toggleLanguageMenu()" title="Cambiar Idioma">
+        🌐
+    </div>
+    
+    <!-- Language menu -->
+    <div class="language-menu" id="languageMenu">
+        <div class="language-option selected" onclick="changeLanguage('es')" data-lang="es">
+            🇪🇸 Español
+        </div>
+        <div class="language-option" onclick="changeLanguage('en')" data-lang="en">
+            🇺🇸 English
+        </div>
+        <div class="language-option" onclick="changeLanguage('pt')" data-lang="pt">
+            🇧🇷 Português
+        </div>
+        <div class="language-option" onclick="changeLanguage('fr')" data-lang="fr">
+            🇫🇷 Français
+        </div>
+        <div class="language-option" onclick="changeLanguage('de')" data-lang="de">
+            🇩🇪 Deutsch
+        </div>
+        <div class="language-option" onclick="changeLanguage('ja')" data-lang="ja">
+            🇯🇵 日本語
+        </div>
+        <div class="language-option" onclick="changeLanguage('zh')" data-lang="zh">
+            🇨🇳 中文
+        </div>
+    </div>
+    
+    <style>
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+        }
+    </style>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script>
+        // Sound effects using Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Background music generator
+        let musicOscillators = [];
+        let musicGainNode = null;
+        let isMusicPlaying = false;
+        
+        // Text-to-speech voice reader
+        let isVoiceReading = false;
+        let currentUtterance = null;
+        let currentLanguage = 'es';
+        
+        // Comprehensive translation dictionary
+        const translations = {
+            es: {
+                title: "🧠 Kit de Seguridad Psicológica",
+                subtitle: "Pequeños gestos para grandes conversaciones",
+                boatText: "Navegando juntos hacia conversaciones más seguras",
+                phaseTitle: "📍 Fase de la Reunión",
+                phaseDesc: "No tienes que usar todo a la vez — elige lo que el equipo necesite ese día",
+                phaseStart: "🟢 Inicio",
+                phaseDuring: "🟡 Durante",
+                phaseEnd: "🔵 Cierre",
+                colorCardsTitle: "🌈 Tarjetas de Colores",
+                colorCardsDesc: "¿Quieres decir algo sin interrumpir? Usa una tarjeta para mantener la conversación fluida y respetuosa",
+                greenCard: "Verde",
+                greenDesc: "Estoy escuchando atentamente",
+                yellowCard: "Amarillo",
+                yellowDesc: "Tengo una pregunta",
+                orangeCard: "Naranja",
+                orangeDesc: "Reformulemos esto",
+                quickActions: "⚡ Acciones Rápidas",
+                breathBtn: "🧘 Pausa de Respiración",
+                faroBtn: "🌟 El Faro - Tu Guía",
+                bloomBtn: "📱 Curso Bloom",
+                truthCardsTitle: "🃏 Cartas de la Verdad",
+                truthCardsDesc: "Pequeñas frases para grandes conversaciones. Haz clic para copiar al portapapeles",
+                btnAll: "📚 Ver Todas",
+                btnCurrent: "🎯 Fase Actual",
+                btnShuffle: "🔀 Mezclar",
+                recognitionTitle: "💌 Tablero de Reconocimiento",
+                recognitionDesc: "Al final de la reunión, escribe un pequeño agradecimiento. Pequeños gestos refuerzan la confianza y el sentido de equipo.",
+                recognitionPlaceholder: 'Ej: "Gracias por escuchar con paciencia"',
+                addBtn: "Agregar 💚",
+                deleteBtn: "🗑️ Eliminar",
+                q1: "¿Cómo nos sentimos hoy?",
+                q2: "¿Qué es algo pequeño que te hizo sonreír esta semana?",
+                q3: "¿Cuál es el objetivo de nuestra reunión?",
+                q4: "¿Ya escuchamos todos los puntos de vista?",
+                q5: "¿Nos estamos haciendo entender?",
+                q6: "¿Necesitamos algún ejemplo para entender mejor?",
+                q7: "¿Cuál es la idea que me llevo de la conversación?",
+                q8: "¿Qué apreciamos de cómo nos escuchamos hoy?",
+                q9: "¿Qué tareas nos llevamos para seguir avanzando?",
+                breathTitle: "🧘 Pausa de Respiración",
+                breathText: "Inhala profundo... Exhala despacio...",
+                breathDesc: "Tómate un momento para centrar tu energía"
+            },
+            en: {
+                title: "🧠 Psychological Safety Kit",
+                subtitle: "Small gestures for great conversations",
+                boatText: "Sailing together towards safer conversations",
+                phaseTitle: "📍 Meeting Phase",
+                phaseDesc: "You don't have to use everything at once — choose what the team needs that day",
+                phaseStart: "🟢 Start",
+                phaseDuring: "🟡 During",
+                phaseEnd: "🔵 Closing",
+                colorCardsTitle: "🌈 Color Cards",
+                colorCardsDesc: "Want to say something without interrupting? Use a card to keep the conversation smooth and respectful",
+                greenCard: "Green",
+                greenDesc: "I'm listening carefully",
+                yellowCard: "Yellow",
+                yellowDesc: "I have a question",
+                orangeCard: "Orange",
+                orangeDesc: "Let's rephrase this",
+                quickActions: "⚡ Quick Actions",
+                breathBtn: "🧘 Breathing Pause",
+                faroBtn: "🌟 The Lighthouse - Your Guide",
+                bloomBtn: "📱 Bloom Course",
+                truthCardsTitle: "🃏 Truth Cards",
+                truthCardsDesc: "Small phrases for big conversations. Click to copy to clipboard",
+                btnAll: "📚 View All",
+                btnCurrent: "🎯 Current Phase",
+                btnShuffle: "🔀 Shuffle",
+                recognitionTitle: "💌 Recognition Board",
+                recognitionDesc: "At the end of the meeting, write a small thank you. Small gestures strengthen trust and team spirit.",
+                recognitionPlaceholder: 'Ex: "Thank you for listening patiently"',
+                addBtn: "Add 💚",
+                deleteBtn: "🗑️ Delete",
+                q1: "How do we feel today?",
+                q2: "What's something small that made you smile this week?",
+                q3: "What is the goal of our meeting?",
+                q4: "Have we heard all points of view?",
+                q5: "Are we making ourselves understood?",
+                q6: "Do we need an example to understand better?",
+                q7: "What is the idea I take from this conversation?",
+                q8: "What do we appreciate about how we listened today?",
+                q9: "What tasks do we take to keep moving forward?",
+                breathTitle: "🧘 Breathing Pause",
+                breathText: "Breathe in deeply... Exhale slowly...",
+                breathDesc: "Take a moment to center your energy"
+            },
+            pt: {
+                title: "🧠 Kit de Segurança Psicológica",
+                subtitle: "Pequenos gestos para grandes conversas",
+                boatText: "Navegando juntos para conversas mais seguras",
+                phaseTitle: "📍 Fase da Reunião",
+                phaseDesc: "Você não precisa usar tudo de uma vez — escolha o que a equipe precisa naquele dia",
+                phaseStart: "🟢 Início",
+                phaseDuring: "🟡 Durante",
+                phaseEnd: "🔵 Encerramento",
+                colorCardsTitle: "🌈 Cartões de Cores",
+                colorCardsDesc: "Quer dizer algo sem interromper? Use um cartão para manter a conversa fluida e respeitosa",
+                greenCard: "Verde",
+                greenDesc: "Estou ouvindo atentamente",
+                yellowCard: "Amarelo",
+                yellowDesc: "Tenho uma pergunta",
+                orangeCard: "Laranja",
+                orangeDesc: "Vamos reformular isso",
+                quickActions: "⚡ Ações Rápidas",
+                breathBtn: "🧘 Pausa para Respirar",
+                faroBtn: "🌟 O Farol - Seu Guia",
+                bloomBtn: "📱 Curso Bloom",
+                truthCardsTitle: "🃏 Cartas da Verdade",
+                truthCardsDesc: "Pequenas frases para grandes conversas. Clique para copiar",
+                btnAll: "📚 Ver Todas",
+                btnCurrent: "🎯 Fase Atual",
+                btnShuffle: "🔀 Embaralhar",
+                recognitionTitle: "💌 Quadro de Reconhecimento",
+                recognitionDesc: "No final da reunião, escreva um pequeno agradecimento. Pequenos gestos fortalecem a confiança e o espírito de equipe.",
+                recognitionPlaceholder: 'Ex: "Obrigado por ouvir com paciência"',
+                addBtn: "Adicionar 💚",
+                deleteBtn: "🗑️ Excluir",
+                q1: "Como nos sentimos hoje?",
+                q2: "O que é algo pequeno que te fez sorrir esta semana?",
+                q3: "Qual é o objetivo da nossa reunião?",
+                q4: "Já ouvimos todos os pontos de vista?",
+                q5: "Estamos nos fazendo entender?",
+                q6: "Precisamos de um exemplo para entender melhor?",
+                q7: "Qual é a ideia que levo desta conversa?",
+                q8: "O que apreciamos em como nos ouvimos hoje?",
+                q9: "Que tarefas levamos para continuar avançando?",
+                breathTitle: "🧘 Pausa para Respirar",
+                breathText: "Inspire profundamente... Expire devagar...",
+                breathDesc: "Reserve um momento para centralizar sua energia"
+            },
+            fr: {
+                title: "🧠 Kit de Sécurité Psychologique",
+                subtitle: "Petits gestes pour grandes conversations",
+                boatText: "Naviguer ensemble vers des conversations plus sûres",
+                phaseTitle: "📍 Phase de Réunion",
+                phaseDesc: "Vous n'avez pas à tout utiliser en même temps — choisissez ce dont l'équipe a besoin ce jour-là",
+                phaseStart: "🟢 Début",
+                phaseDuring: "🟡 Pendant",
+                phaseEnd: "🔵 Clôture",
+                colorCardsTitle: "🌈 Cartes de Couleurs",
+                colorCardsDesc: "Vous voulez dire quelque chose sans interrompre? Utilisez une carte pour maintenir la conversation fluide et respectueuse",
+                greenCard: "Vert",
+                greenDesc: "J'écoute attentivement",
+                yellowCard: "Jaune",
+                yellowDesc: "J'ai une question",
+                orangeCard: "Orange",
+                orangeDesc: "Reformulons cela",
+                quickActions: "⚡ Actions Rapides",
+                breathBtn: "🧘 Pause Respiration",
+                faroBtn: "🌟 Le Phare - Votre Guide",
+                bloomBtn: "📱 Cours Bloom",
+                truthCardsTitle: "🃏 Cartes de Vérité",
+                truthCardsDesc: "Petites phrases pour grandes conversations. Cliquez pour copier",
+                btnAll: "📚 Voir Tout",
+                btnCurrent: "🎯 Phase Actuelle",
+                btnShuffle: "🔀 Mélanger",
+                recognitionTitle: "💌 Tableau de Reconnaissance",
+                recognitionDesc: "À la fin de la réunion, écrivez un petit remerciement. Les petits gestes renforcent la confiance et l'esprit d'équipe.",
+                recognitionPlaceholder: 'Ex: "Merci d\'avoir écouté patiemment"',
+                addBtn: "Ajouter 💚",
+                deleteBtn: "🗑️ Supprimer",
+                q1: "Comment nous sentons-nous aujourd'hui?",
+                q2: "Qu'est-ce qui vous a fait sourire cette semaine?",
+                q3: "Quel est l'objectif de notre réunion?",
+                q4: "Avons-nous entendu tous les points de vue?",
+                q5: "Nous faisons-nous comprendre?",
+                q6: "Avons-nous besoin d'un exemple pour mieux comprendre?",
+                q7: "Quelle est l'idée que je retiens de cette conversation?",
+                q8: "Qu'apprécions-nous de la façon dont nous avons écouté aujourd'hui?",
+                q9: "Quelles tâches emportons-nous pour continuer d'avancer?",
+                breathTitle: "🧘 Pause Respiration",
+                breathText: "Inspirez profondément... Expirez lentement...",
+                breathDesc: "Prenez un moment pour centrer votre énergie"
+            },
+            de: {
+                title: "🧠 Psychologisches Sicherheitskit",
+                subtitle: "Kleine Gesten für große Gespräche",
+                boatText: "Gemeinsam zu sichereren Gesprächen segeln",
+                phaseTitle: "📍 Besprechungsphase",
+                phaseDesc: "Sie müssen nicht alles auf einmal verwenden — wählen Sie, was das Team an diesem Tag braucht",
+                phaseStart: "🟢 Start",
+                phaseDuring: "🟡 Während",
+                phaseEnd: "🔵 Abschluss",
+                colorCardsTitle: "🌈 Farbkarten",
+                colorCardsDesc: "Möchten Sie etwas sagen, ohne zu unterbrechen? Verwenden Sie eine Karte, um das Gespräch fließend und respektvoll zu halten",
+                greenCard: "Grün",
+                greenDesc: "Ich höre aufmerksam zu",
+                yellowCard: "Gelb",
+                yellowDesc: "Ich habe eine Frage",
+                orangeCard: "Orange",
+                orangeDesc: "Lassen Sie uns das umformulieren",
+                quickActions: "⚡ Schnellaktionen",
+                breathBtn: "🧘 Atempause",
+                faroBtn: "🌟 Der Leuchtturm - Ihr Leitfaden",
+                bloomBtn: "📱 Bloom-Kurs",
+                truthCardsTitle: "🃏 Wahrheitskarten",
+                truthCardsDesc: "Kleine Sätze für große Gespräche. Klicken Sie zum Kopieren",
+                btnAll: "📚 Alle Anzeigen",
+                btnCurrent: "🎯 Aktuelle Phase",
+                btnShuffle: "🔀 Mischen",
+                recognitionTitle: "💌 Anerkennungstafel",
+                recognitionDesc: "Schreiben Sie am Ende des Meetings ein kleines Dankeschön. Kleine Gesten stärken Vertrauen und Teamgeist.",
+                recognitionPlaceholder: 'Z.B: "Danke fürs geduldige Zuhören"',
+                addBtn: "Hinzufügen 💚",
+                deleteBtn: "🗑️ Löschen",
+                q1: "Wie fühlen wir uns heute?",
+                q2: "Was hat Sie diese Woche zum Lächeln gebracht?",
+                q3: "Was ist das Ziel unseres Meetings?",
+                q4: "Haben wir alle Standpunkte gehört?",
+                q5: "Machen wir uns verständlich?",
+                q6: "Brauchen wir ein Beispiel, um besser zu verstehen?",
+                q7: "Welche Idee nehme ich aus diesem Gespräch mit?",
+                q8: "Was schätzen wir daran, wie wir heute zugehört haben?",
+                q9: "Welche Aufgaben nehmen wir mit, um voranzukommen?",
+                breathTitle: "🧘 Atempause",
+                breathText: "Tief einatmen... Langsam ausatmen...",
+                breathDesc: "Nehmen Sie sich einen Moment, um Ihre Energie zu zentrieren"
+            },
+            ja: {
+                title: "🧠 心理的安全キット",
+                subtitle: "偉大な会話のための小さなジェスチャー",
+                boatText: "より安全な会話に向けて一緒に航海する",
+                phaseTitle: "📍 会議フェーズ",
+                phaseDesc: "すべてを一度に使う必要はありません — その日にチームが必要なものを選択してください",
+                phaseStart: "🟢 開始",
+                phaseDuring: "🟡 進行中",
+                phaseEnd: "🔵 終了",
+                colorCardsTitle: "🌈 カラーカード",
+                colorCardsDesc: "中断せずに何か言いたいですか？カードを使用して、会話をスムーズで敬意あるものに保ちましょう",
+                greenCard: "緑",
+                greenDesc: "注意深く聞いています",
+                yellowCard: "黄色",
+                yellowDesc: "質問があります",
+                orangeCard: "オレンジ",
+                orangeDesc: "これを言い換えましょう",
+                quickActions: "⚡ クイックアクション",
+                breathBtn: "🧘 呼吸の一時停止",
+                faroBtn: "🌟 灯台 - あなたのガイド",
+                bloomBtn: "📱 Bloomコース",
+                truthCardsTitle: "🃏 真実のカード",
+                truthCardsDesc: "大きな会話のための小さなフレーズ。クリックしてコピー",
+                btnAll: "📚 すべて表示",
+                btnCurrent: "🎯 現在のフェーズ",
+                btnShuffle: "🔀 シャッフル",
+                recognitionTitle: "💌 認識ボード",
+                recognitionDesc: "会議の最後に、小さな感謝の気持ちを書いてください。小さなジェスチャーが信頼とチームスピリットを強化します。",
+                recognitionPlaceholder: '例: "辛抱強く聞いてくれてありがとう"',
+                addBtn: "追加 💚",
+                deleteBtn: "🗑️ 削除",
+                q1: "今日の気分はどうですか？",
+                q2: "今週あなたを笑顔にした小さなことは何ですか？",
+                q3: "私たちの会議の目標は何ですか？",
+                q4: "すべての視点を聞きましたか？",
+                q5: "私たちは理解されていますか？",
+                q6: "よりよく理解するための例が必要ですか？",
+                q7: "この会話から得られるアイデアは何ですか？",
+                q8: "今日の聞き方について何を評価しますか？",
+                q9: "前進し続けるためにどのようなタスクを持ち帰りますか？",
+                breathTitle: "🧘 呼吸の一時停止",
+                breathText: "深く息を吸って...ゆっくり息を吐いて...",
+                breathDesc: "エネルギーを集中させる瞬間を取ってください"
+            },
+            zh: {
+                title: "🧠 心理安全工具包",
+                subtitle: "小举动促成大对话",
+                boatText: "一起航行到更安全的对话",
+                phaseTitle: "📍 会议阶段",
+                phaseDesc: "您不必一次使用所有内容 — 选择团队当天需要的内容",
+                phaseStart: "🟢 开始",
+                phaseDuring: "🟡 进行中",
+                phaseEnd: "🔵 结束",
+                colorCardsTitle: "🌈 颜色卡片",
+                colorCardsDesc: "想说些什么而不打断？使用卡片保持对话流畅和尊重",
+                greenCard: "绿色",
+                greenDesc: "我在认真倾听",
+                yellowCard: "黄色",
+                yellowDesc: "我有一个问题",
+                orangeCard: "橙色",
+                orangeDesc: "让我们重新表述",
+                quickActions: "⚡ 快速操作",
+                breathBtn: "🧘 呼吸暂停",
+                faroBtn: "🌟 灯塔 - 您的指南",
+                bloomBtn: "📱 Bloom课程",
+                truthCardsTitle: "🃏 真相卡",
+                truthCardsDesc: "小短语促成大对话。点击复制",
+                btnAll: "📚 查看全部",
+                btnCurrent: "🎯 当前阶段",
+                btnShuffle: "🔀 随机排列",
+                recognitionTitle: "💌 认可板",
+                recognitionDesc: "在会议结束时，写一个小小的感谢。小举动增强信任和团队精神。",
+                recognitionPlaceholder: '例如: "感谢您耐心倾听"',
+                addBtn: "添加 💚",
+                deleteBtn: "🗑️ 删除",
+                q1: "我们今天感觉如何？",
+                q2: "本周有什么小事让你微笑？",
+                q3: "我们会议的目标是什么？",
+                q4: "我们听到所有观点了吗？",
+                q5: "我们是否让自己被理解？",
+                q6: "我们需要一个例子来更好地理解吗？",
+                q7: "我从这次对话中得到什么想法？",
+                q8: "我们欣赏今天我们如何倾听的什么？",
+                q9: "我们带走什么任务以继续前进？",
+                breathTitle: "🧘 呼吸暂停",
+                breathText: "深吸气...慢慢呼气...",
+                breathDesc: "花点时间集中你的能量"
+            }
+        };
+        
+        function translatePage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+            
+            playSound('click');
+            showNotification('🌐 Traduciendo...');
+            
+            // Translate main elements
+            document.querySelector('h1').textContent = t.title;
+            document.querySelector('.subtitle').textContent = t.subtitle;
+            document.querySelector('.boat-text').textContent = t.boatText;
+            
+            // Phase section
+            document.querySelector('.meeting-phase h2').textContent = t.phaseTitle;
+            document.querySelector('.meeting-phase p').textContent = t.phaseDesc;
+            document.querySelectorAll('.phase-btn')[0].textContent = t.phaseStart;
+            document.querySelectorAll('.phase-btn')[1].textContent = t.phaseDuring;
+            document.querySelectorAll('.phase-btn')[2].textContent = t.phaseEnd;
+            
+            // Color cards
+            document.querySelector('.voice-meter h2').textContent = t.colorCardsTitle;
+            document.querySelector('.voice-meter p').textContent = t.colorCardsDesc;
+            document.querySelectorAll('.card-title')[0].textContent = t.greenCard;
+            document.querySelectorAll('.card-desc')[0].textContent = t.greenDesc;
+            document.querySelectorAll('.card-title')[1].textContent = t.yellowCard;
+            document.querySelectorAll('.card-desc')[1].textContent = t.yellowDesc;
+            document.querySelectorAll('.card-title')[2].textContent = t.orangeCard;
+            document.querySelectorAll('.card-desc')[2].textContent = t.orangeDesc;
+            
+            // Quick actions
+            document.querySelector('.quick-actions h2').textContent = t.quickActions;
+            document.querySelectorAll('.action-btn')[0].textContent = t.breathBtn;
+            document.querySelectorAll('.action-btn')[1].textContent = t.faroBtn;
+            document.querySelectorAll('.action-btn')[2].textContent = t.bloomBtn;
+            
+            // Truth cards
+            document.querySelector('.truth-cards-section h2').textContent = t.truthCardsTitle;
+            document.querySelector('.truth-cards-section > p').textContent = t.truthCardsDesc;
+            document.querySelectorAll('.mode-btn')[0].textContent = t.btnAll;
+            document.querySelectorAll('.mode-btn')[1].textContent = t.btnCurrent;
+            document.querySelectorAll('.mode-btn')[2].textContent = t.btnShuffle;
+            
+            // Recognition
+            document.querySelector('.recognition-section h2').textContent = t.recognitionTitle;
+            document.querySelector('.recognition-section > p').textContent = t.recognitionDesc;
+            document.getElementById('recognitionInput').placeholder = t.recognitionPlaceholder;
+            document.getElementById('addBtn').textContent = t.addBtn;
+            
+            // Update questions
+            questions.inicio = [t.q1, t.q2, t.q3];
+            questions.durante = [t.q4, t.q5, t.q6];
+            questions.cierre = [t.q7, t.q8, t.q9];
+            updateQuestions();
+            
+            // Breathing message
+            document.querySelector('.spray-message h3').textContent = t.breathTitle;
+            document.querySelector('.spray-message p:first-of-type strong').textContent = t.breathText;
+            document.querySelector('.spray-message p:last-of-type').textContent = t.breathDesc;
+            
+            // Update delete buttons
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.textContent = t.deleteBtn;
+            });
+            
+            currentLanguage = lang;
+            updateVoiceLanguage(lang);
+            
+            setTimeout(() => {
+                showNotification('✅ ' + (lang === 'es' ? 'Traducción completada' : lang === 'en' ? 'Translation completed' : lang === 'pt' ? 'Tradução concluída' : lang === 'fr' ? 'Traduction terminée' : lang === 'de' ? 'Übersetzung abgeschlossen' : lang === 'ja' ? '翻訳完了' : '翻译完成'));
+                playSound('success');
+            }, 500);
+        }
+        
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('languageMenu');
+            menu.classList.toggle('active');
+            playSound('click');
+        }
+        
+        function changeLanguage(lang) {
+            // Update selected option
+            document.querySelectorAll('.language-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('selected');
+            
+            // Close menu
+            document.getElementById('languageMenu').classList.remove('active');
+            
+            // Translate page
+            translatePage(lang);
+        }
+        
+        function updateVoiceLanguage(lang) {
+            const langMap = {
+                'es': 'es-ES',
+                'en': 'en-US',
+                'pt': 'pt-BR',
+                'fr': 'fr-FR',
+                'de': 'de-DE',
+                'ja': 'ja-JP',
+                'zh': 'zh-CN'
+            };
+            
+            currentLanguage = langMap[lang] || 'es-ES';
+        }
+        
+        // Close language menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('languageMenu');
+            const icon = document.getElementById('languageIcon');
+            if (menu && icon && !menu.contains(event.target) && event.target !== icon) {
+                menu.classList.remove('active');
+            }
+        });
+        
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = currentLanguage; // Use current selected language
+                utterance.rate = 0.9; // Slightly slower for clarity
+                utterance.pitch = 1;
+                utterance.volume = 0.8;
+                
+                // Try to find a voice in the current language
+                const voices = window.speechSynthesis.getVoices();
+                const matchingVoice = voices.find(voice => voice.lang.startsWith(currentLanguage.split('-')[0]));
+                if (matchingVoice) {
+                    utterance.voice = matchingVoice;
+                }
+                
+                utterance.onend = function() {
+                    const icon = document.getElementById('voiceIcon');
+                    if (icon) icon.classList.remove('speaking');
+                };
+                
+                currentUtterance = utterance;
+                window.speechSynthesis.speak(utterance);
+                
+                const icon = document.getElementById('voiceIcon');
+                if (icon) icon.classList.add('speaking');
+            }
+        }
+            if (!menu.contains(event.target) && event.target !== icon) {
+                menu.classList.remove('active');
+            }
+        });
+        
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = currentLanguage; // Use current selected language
+                utterance.rate = 0.9; // Slightly slower for clarity
+                utterance.pitch = 1;
+                utterance.volume = 0.8;
+                
+                // Try to find a voice in the current language
+                const voices = window.speechSynthesis.getVoices();
+                const matchingVoice = voices.find(voice => voice.lang.startsWith(currentLanguage.split('-')[0]));
+                if (matchingVoice) {
+                    utterance.voice = matchingVoice;
+                }
+                
+                utterance.onend = function() {
+                    const icon = document.getElementById('voiceIcon');
+                    icon.classList.remove('speaking');
+                };
+                
+                currentUtterance = utterance;
+                window.speechSynthesis.speak(utterance);
+                
+                const icon = document.getElementById('voiceIcon');
+                icon.classList.add('speaking');
+            }
+        }
+        
+        function toggleVoiceReader() {
+            const icon = document.getElementById('voiceIcon');
+            
+            if (!isVoiceReading) {
+                isVoiceReading = true;
+                icon.textContent = '🔇';
+                playSound('success');
+                showNotification('🔊 Lector de voz activado');
+                
+                // Read welcome message
+                const welcomeMessages = {
+                    'es-ES': 'Lector de voz activado. Kit de Seguridad Psicológica Virtual de Takeda. Usa las teclas de flecha o Tab para navegar entre elementos. Presiona Enter para escuchar cualquier elemento.',
+                    'en-US': 'Voice reader activated. Takeda Virtual Psychological Safety Kit. Use arrow keys or Tab to navigate between elements. Press Enter to hear any element.',
+                    'pt-BR': 'Leitor de voz ativado. Kit de Segurança Psicológica Virtual da Takeda. Use as setas ou Tab para navegar entre os elementos. Pressione Enter para ouvir qualquer elemento.',
+                    'fr-FR': 'Lecteur vocal activé. Kit de Sécurité Psychologique Virtuel Takeda. Utilisez les flèches ou Tab pour naviguer entre les éléments. Appuyez sur Entrée pour entendre n\'importe quel élément.',
+                    'de-DE': 'Sprachleser aktiviert. Virtuelles Psychologisches Sicherheitskit von Takeda. Verwenden Sie Pfeiltasten oder Tab, um zwischen Elementen zu navigieren. Drücken Sie Enter, um ein beliebiges Element zu hören.',
+                    'ja-JP': '音声リーダーが有効になりました。武田バーチャル心理的安全キット。矢印キーまたはTabキーを使用して要素間を移動します。Enterを押すと、任意の要素を聞くことができます。',
+                    'zh-CN': '语音阅读器已激活。武田虚拟心理安全工具包。使用箭头键或Tab键在元素之间导航。按Enter键可以听到任何元素。'
+                };
+                
+                speakText(welcomeMessages[currentLanguage] || welcomeMessages['es-ES']);
+                
+                // Add click listeners to readable content
+                enableVoiceReading();
+            } else {
+                isVoiceReading = false;
+                icon.textContent = '🔊';
+                icon.classList.remove('speaking');
+                window.speechSynthesis.cancel();
+                playSound('click');
+                showNotification('🔊 Lector de voz desactivado');
+                
+                // Remove click listeners
+                disableVoiceReading();
+            }
+        }
+        
+        function enableVoiceReading() {
+            // Make all text readable with proper ARIA labels
+            const readableElements = document.querySelectorAll('h1, h2, h3, h4, p, .card-desc, .card-title, .question-card, .recognition-text, .boat-text, .subtitle, .kit-item, button:not(.delete-btn), .voice-card, .phase-btn, .mode-btn');
+            
+            readableElements.forEach((element, index) => {
+                if (element.getAttribute('data-voice-enabled') === 'true') return; // Skip if already enabled
+                
+                element.style.cursor = 'pointer';
+                element.setAttribute('data-voice-enabled', 'true');
+                element.setAttribute('tabindex', '0');
+                element.setAttribute('role', 'button');
+                
+                // Add descriptive aria-label
+                if (!element.getAttribute('aria-label-original')) {
+                    let description = element.textContent.trim();
+                    if (element.classList.contains('question-card')) {
+                        description = 'Carta de la verdad: ' + description;
+                    } else if (element.classList.contains('voice-card')) {
+                        description = 'Tarjeta de color: ' + description;
+                    } else if (element.classList.contains('phase-btn')) {
+                        description = 'Fase de reunión: ' + description;
+                    } else if (element.tagName === 'H1') {
+                        description = 'Título principal: ' + description;
+                    } else if (element.tagName === 'H2') {
+                        description = 'Sección: ' + description;
+                    } else if (element.tagName === 'BUTTON') {
+                        description = 'Botón: ' + description;
+                    }
+                    element.setAttribute('aria-label-original', description);
+                    element.setAttribute('aria-label', description);
+                }
+                
+                const clickHandler = function(e) {
+                    handleVoiceClick.call(this, e);
+                };
+                
+                const keyHandler = function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleVoiceClick.call(this, e);
+                    }
+                };
+                
+                element.addEventListener('click', clickHandler);
+                element.addEventListener('keypress', keyHandler);
+                
+                // Store handlers for cleanup
+                element._voiceClickHandler = clickHandler;
+                element._voiceKeyHandler = keyHandler;
+            });
+            
+            // Add section navigation announcements
+            addSectionAnnouncements();
+        }
+        
+        function addSectionAnnouncements() {
+            // Announce when entering different sections
+            const sections = [
+                { selector: '.meeting-phase', text: 'Sección: Fase de la Reunión. Aquí puedes seleccionar en qué momento de la reunión estás: Inicio, Durante, o Cierre.' },
+                { selector: '.voice-meter', text: 'Sección: Tarjetas de Colores. Usa estas tarjetas para expresar tu estado sin interrumpir: Verde para escuchar, Amarillo para preguntar, Naranja para reformular.' },
+                { selector: '.quick-actions', text: 'Sección: Acciones Rápidas. Aquí encontrarás herramientas como Pausa de Respiración, El Faro y acceso al curso Bloom.' },
+                { selector: '.truth-cards-section', text: 'Sección: Cartas de la Verdad. Pequeñas frases para grandes conversaciones. Haz clic en cualquier carta para copiarla.' },
+                { selector: '.recognition-section', text: 'Sección: Tablero de Reconocimiento. Escribe agradecimientos para fortalecer la confianza del equipo.' }
+            ];
+            
+            sections.forEach(section => {
+                const element = document.querySelector(section.selector);
+                if (element) {
+                    element.setAttribute('aria-label', section.text);
+                    element.setAttribute('tabindex', '0');
+                    element.addEventListener('focus', function() {
+                        if (isVoiceReading) {
+                            speakText(section.text);
+                        }
+                    });
+                }
+            });
+        }
+        
+        function disableVoiceReading() {
+            const readableElements = document.querySelectorAll('[data-voice-enabled="true"]');
+            
+            readableElements.forEach(element => {
+                element.style.cursor = '';
+                element.removeAttribute('data-voice-enabled');
+                element.removeAttribute('tabindex');
+                element.removeAttribute('role');
+                
+                // Remove event listeners using stored handlers
+                if (element._voiceClickHandler) {
+                    element.removeEventListener('click', element._voiceClickHandler);
+                    delete element._voiceClickHandler;
+                }
+                if (element._voiceKeyHandler) {
+                    element.removeEventListener('keypress', element._voiceKeyHandler);
+                    delete element._voiceKeyHandler;
+                }
+            });
+        }
+        
+        function handleVoiceClick(event) {
+            if (isVoiceReading) {
+                const ariaLabel = this.getAttribute('aria-label');
+                const text = ariaLabel || this.textContent.trim();
+                if (text) {
+                    speakText(text);
+                    playSound('click');
+                    
+                    // Visual feedback
+                    this.style.outline = '3px solid #667eea';
+                    setTimeout(() => {
+                        this.style.outline = '';
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Load voices when available
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = function() {
+                window.speechSynthesis.getVoices();
+            };
+        }
+        
+        function createBackgroundMusic() {
+            // Create master gain node
+            musicGainNode = audioContext.createGain();
+            musicGainNode.gain.value = 0;
+            musicGainNode.connect(audioContext.destination);
+            
+            // Peaceful chord progression: C major - G major - A minor - F major
+            const chordProgression = [
+                [261.63, 329.63, 392.00], // C major (C-E-G)
+                [392.00, 493.88, 587.33], // G major (G-B-D)
+                [220.00, 261.63, 329.63], // A minor (A-C-E)
+                [349.23, 440.00, 523.25]  // F major (F-A-C)
+            ];
+            
+            let chordIndex = 0;
+            
+            function playChord() {
+                if (!isMusicPlaying) return;
+                
+                const chord = chordProgression[chordIndex];
+                const chordDuration = 4; // 4 seconds per chord
+                
+                chord.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = freq;
+                    
+                    // Gentle fade in and out
+                    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.08 - (index * 0.02), audioContext.currentTime + 0.5);
+                    gainNode.gain.setValueAtTime(0.08 - (index * 0.02), audioContext.currentTime + chordDuration - 0.5);
+                    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + chordDuration);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(musicGainNode);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + chordDuration);
+                });
+                
+                // Add subtle bell-like overtone
+                const bell = audioContext.createOscillator();
+                const bellGain = audioContext.createGain();
+                bell.type = 'sine';
+                bell.frequency.value = chord[0] * 2;
+                bellGain.gain.setValueAtTime(0, audioContext.currentTime);
+                bellGain.gain.linearRampToValueAtTime(0.03, audioContext.currentTime + 0.1);
+                bellGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 2);
+                bell.connect(bellGain);
+                bellGain.connect(musicGainNode);
+                bell.start(audioContext.currentTime);
+                bell.stop(audioContext.currentTime + 2);
+                
+                chordIndex = (chordIndex + 1) % chordProgression.length;
+                
+                if (isMusicPlaying) {
+                    setTimeout(playChord, chordDuration * 1000);
+                }
+            }
+            
+            // Fade in master volume
+            musicGainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 2);
+            
+            // Start playing
+            playChord();
+        }
+        
+        function stopBackgroundMusic() {
+            isMusicPlaying = false;
+            if (musicGainNode) {
+                musicGainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 1.5);
+                setTimeout(() => {
+                    if (musicGainNode) {
+                        musicGainNode.disconnect();
+                        musicGainNode = null;
+                    }
+                }, 1500);
+            }
+        }
+        
+        function toggleBackgroundMusic() {
+            const icon = document.getElementById('musicIcon');
+            
+            if (!isMusicPlaying) {
+                isMusicPlaying = true;
+                createBackgroundMusic();
+                icon.classList.add('playing');
+                icon.textContent = '🔇';
+                showNotification('🎵 Música ambiental activada');
+                playSound('success');
+            } else {
+                stopBackgroundMusic();
+                icon.classList.remove('playing');
+                icon.textContent = '🎵';
+                showNotification('🎵 Música detenida');
+                playSound('click');
+            }
+        }
+        
+        function playSound(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            switch(type) {
+                case 'click':
+                    oscillator.frequency.value = 800;
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+                case 'success':
+                    oscillator.frequency.value = 600;
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.1);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+                case 'delete':
+                    oscillator.frequency.value = 400;
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                    break;
+                case 'breath':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 220;
+                    gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(180, audioContext.currentTime + 0.5);
+                    oscillator.stop(audioContext.currentTime + 1);
+                    break;
+                case 'shuffle':
+                    for(let i = 0; i < 3; i++) {
+                        const osc = audioContext.createOscillator();
+                        const gain = audioContext.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioContext.destination);
+                        osc.frequency.value = 600 + (i * 200);
+                        gain.gain.setValueAtTime(0.1, audioContext.currentTime + (i * 0.05));
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + (i * 0.05) + 0.1);
+                        osc.start(audioContext.currentTime + (i * 0.05));
+                        osc.stop(audioContext.currentTime + (i * 0.05) + 0.1);
+                    }
+                    break;
+            }
+        }
+        
+        // Firebase configuration - Your Takeda Safety Kit Database
+        const firebaseConfig = {
+            apiKey: "AIzaSyDE1460OmvvTk8S0gVJTbUU4JAHXS-f8EM",
+            authDomain: "safety-kit-takeda.firebaseapp.com",
+            databaseURL: "https://safety-kit-takeda-default-rtdb.firebaseio.com",
+            projectId: "safety-kit-takeda",
+            storageBucket: "safety-kit-takeda.firebasestorage.app",
+            messagingSenderId: "474966309246",
+            appId: "1:474966309246:web:a09c6f325c0b0c7c461b2f"
+        };
+        
+        // Initialize Firebase with error handling
+        let database;
+        let firebaseInitialized = false;
+        
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                database = firebase.database();
+                firebaseInitialized = true;
+                console.log('Firebase initialized successfully');
+            } else {
+                console.error('Firebase library not loaded');
+            }
+        } catch (e) {
+            console.error("Firebase initialization error:", e);
+        }
+        
+        const questions = {
+            inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
+            durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
+            cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
+        };
+        
+        const phaseLabels = { inicio: '🟢 Inicio', durante: '🟡 Durante', cierre: '🔵 Cierre' };
+        let currentPhase = 'inicio', cardDisplayMode = 'all';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateQuestions();
+            loadRecognitions();
+            document.getElementById('recognitionInput').addEventListener('keypress', e => { if (e.key === 'Enter') addRecognition(); });
+        });
+        
+        function setPhase(phase) {
+            playSound('click');
+            currentPhase = phase;
+            document.querySelectorAll('.phase-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            updateQuestions();
+        }
+        
+        function setCardMode(mode) {
+            playSound('click');
+            cardDisplayMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            updateQuestions();
+        }
+        
+        function updateQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            let questionsToShow = [];
+            
+            if (cardDisplayMode === 'current') {
+                questions[currentPhase].forEach((q, i) => questionsToShow.push({ text: q, phase: currentPhase }));
+            } else {
+                Object.keys(questions).forEach(phase => questions[phase].forEach(q => questionsToShow.push({ text: q, phase: phase })));
+            }
+            
+            questionsToShow.forEach(q => {
+                const card = document.createElement('div');
+                card.className = `question-card ${q.phase}`;
+                const badge = document.createElement('div');
+                badge.className = `question-phase-badge ${q.phase}`;
+                badge.textContent = phaseLabels[q.phase];
+                const text = document.createElement('div');
+                text.textContent = q.text;
+                text.style.paddingTop = '25px';
+                card.appendChild(badge);
+                card.appendChild(text);
+                card.onclick = () => { 
+                    playSound('click');
+                    navigator.clipboard.writeText(q.text).then(() => {
+                        showNotification('✅ Copiado: ' + q.text.substring(0, 30) + '...');
+                    }).catch(() => {
+                        showNotification('❌ Error al copiar');
+                    });
+                };
+                container.appendChild(card);
+            });
+        }
+        
+        function shuffleCards() {
+            playSound('shuffle');
+            const container = document.getElementById('questionsContainer');
+            const cards = Array.from(container.children);
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            container.innerHTML = '';
+            cards.forEach(card => container.appendChild(card));
+            showNotification('🔀 Cartas mezcladas');
+        }
+        
+        async function loadRecognitions() {
+            if (!firebaseInitialized || !database) {
+                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">⚠️ Conectando con la base de datos...</div>';
+                // Retry after 2 seconds
+                setTimeout(() => {
+                    if (firebaseInitialized && database) {
+                        loadRecognitions();
+                    } else {
+                        document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">❌ No se pudo conectar. Recarga la página.</div>';
+                    }
+                }, 2000);
+                return;
+            }
+            
+            try {
+                const ref = database.ref('recognitions');
+                ref.orderByChild('timestamp').limitToLast(50).on('value', (snapshot) => {
+                    const items = [];
+                    snapshot.forEach((childSnapshot) => {
+                        items.push({
+                            key: childSnapshot.key,
+                            data: childSnapshot.val()
+                        });
+                    });
+                    items.reverse(); // Most recent first
+                    displayRecognitions(items);
+                });
+            } catch (e) {
+                console.error('Error loading:', e);
+                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">❌ Error al cargar reconocimientos</div>';
+            }
+        }
+        
+        function displayRecognitions(items) {
+            const list = document.getElementById('recognitionList');
+            if (items.length === 0) {
+                list.innerHTML = '<div style="text-align:center;padding:20px;font-style:italic;">No hay reconocimientos aún. ¡Sé el primero!</div>';
+                return;
+            }
+            list.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'recognition-item';
+                const text = document.createElement('span');
+                text.className = 'recognition-text';
+                text.textContent = item.data.emoji + ' "' + item.data.text + '"';
+                const btn = document.createElement('button');
+                btn.className = 'delete-btn';
+                btn.textContent = '🗑️ Eliminar';
+                btn.onclick = () => {
+                    playSound('delete');
+                    deleteRecognition(item.key);
+                };
+                div.appendChild(text);
+                div.appendChild(btn);
+                list.appendChild(div);
+            });
+        }
+        
+        async function addRecognition() {
+            const input = document.getElementById('recognitionInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            if (!firebaseInitialized || !database) {
+                showNotification('❌ Base de datos no disponible. Recarga la página.');
+                return;
+            }
+            
+            const btn = document.getElementById('addBtn');
+            btn.disabled = true;
+            
+            try {
+                const emojis = ['💚', '✨', '🌟', '💫', '🙌', '👏', '💙', '🎯'];
+                const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                const ref = database.ref('recognitions');
+                await ref.push({
+                    text: text,
+                    emoji: emoji,
+                    timestamp: Date.now()
+                });
+                
+                input.value = '';
+                playSound('success');
+                showNotification('✅ Reconocimiento agregado');
+            } catch (e) {
+                showNotification('❌ Error al guardar');
+                console.error('Error:', e);
+            } finally {
+                btn.disabled = false;
+            }
+        }
+        
+        async function deleteRecognition(key) {
+            if (!firebaseInitialized || !database) {
+                showNotification('❌ Base de datos no disponible');
+                return;
+            }
+            
+            try {
+                const ref = database.ref('recognitions/' + key);
+                await ref.remove();
+                showNotification('🗑️ Eliminado');
+            } catch (e) {
+                showNotification('❌ Error al eliminar');
+                console.error('Error:', e);
+            }
+        }
+        
+        function selectVoiceCard(card, color) {
+            playSound('click');
+            document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            const msgs = { green: '🟢 Escuchando atentamente', yellow: '🟡 Tengo una pregunta', orange: '🟠 Reformulemos esto' };
+            showNotification(msgs[color]);
+        }
+        
+        function activateBreathing() {
+            playSound('breath');
+            const effect = document.getElementById('breathingEffect');
+            const message = document.getElementById('breathingMessage');
+            effect.classList.add('active');
+            message.classList.add('active');
+            showNotification('🧘 Respira... Inhala... Exhala...');
+            setTimeout(() => {
+                effect.classList.remove('active');
+                message.classList.remove('active');
+            }, 8000);
+        }
+        
+        function showFaro() { 
+            playSound('click');
+            document.getElementById('faroModal').classList.add('active'); 
+        }
+        function showBloom() { 
+            playSound('click');
+            document.getElementById('bloomModal').classList.add('active'); 
+        }
+        function closeModal(id) { 
+            playSound('click');
+            document.getElementById(id).classList.remove('active'); 
+        }
+        
+        function showNotification(msg) {
+            const n = document.createElement('div');
+            n.style.cssText = 'position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#56ab2f 0%,#a8e063 100%);color:white;padding:15px 25px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,0.3);z-index:2000;';
+            n.textContent = msg;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 2000);
+        }
+        
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>
