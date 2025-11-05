@@ -494,6 +494,8 @@
                 recognitionPlaceholder: 'Ej: "Gracias por escuchar con paciencia"',
                 addBtn: "Agregar 💚",
                 deleteBtn: "🗑️ Eliminar",
+                closeBtn: "Cerrar",
+                noRecognitions: "No hay reconocimientos aún. ¡Sé el primero!",
                 
                 // Questions
                 q1: "¿Cómo nos sentimos hoy?",
@@ -597,6 +599,8 @@
                 recognitionPlaceholder: 'Ex: "Thank you for listening patiently"',
                 addBtn: "Add 💚",
                 deleteBtn: "🗑️ Delete",
+                closeBtn: "Close",
+                noRecognitions: "No recognitions yet. Be the first!",
                 
                 // Questions
                 q1: "How do we feel today?",
@@ -700,6 +704,8 @@
                 recognitionPlaceholder: 'Ex: "Obrigado por ouvir com paciência"',
                 addBtn: "Adicionar 💚",
                 deleteBtn: "🗑️ Excluir",
+                closeBtn: "Fechar",
+                noRecognitions: "Nenhum reconhecimento ainda. Seja o primeiro!",
                 
                 // Questions
                 q1: "Como nos sentimos hoje?",
@@ -803,6 +809,8 @@
                 recognitionPlaceholder: 'Ex: "Merci d\'avoir écouté patiemment"',
                 addBtn: "Ajouter 💚",
                 deleteBtn: "🗑️ Supprimer",
+                closeBtn: "Fermer",
+                noRecognitions: "Aucune reconnaissance pour le moment. Soyez le premier !",
                 
                 // Questions
                 q1: "Comment nous sentons-nous aujourd'hui ?",
@@ -906,6 +914,8 @@
                 recognitionPlaceholder: 'Z.B: "Danke für das geduldige Zuhören"',
                 addBtn: "Hinzufügen 💚",
                 deleteBtn: "🗑️ Löschen",
+                closeBtn: "Schließen",
+                noRecognitions: "Noch keine Anerkennungen. Seien Sie der Erste!",
                 
                 // Questions
                 q1: "Wie fühlen wir uns heute?",
@@ -1009,6 +1019,8 @@
                 recognitionPlaceholder: '例: "忍耐強く聞いてくれてありがとう"',
                 addBtn: "追加 💚",
                 deleteBtn: "🗑️ 削除",
+                closeBtn: "閉じる",
+                noRecognitions: "まだ承認はありません。最初になってください！",
                 
                 // Questions
                 q1: "今日の気分はどうですか？",
@@ -1112,6 +1124,8 @@
                 recognitionPlaceholder: '例如："感谢耐心倾听"',
                 addBtn: "添加 💚",
                 deleteBtn: "🗑️ 删除",
+                closeBtn: "关闭",
+                noRecognitions: "还没有任何认可。成为第一个吧！",
                 
                 // Questions
                 q1: "我们今天感觉如何？",
@@ -1272,6 +1286,11 @@
             document.getElementById('breathTitle').textContent = t.breathTitle;
             document.getElementById('breathText').textContent = t.breathText;
             document.getElementById('breathDesc').textContent = t.breathDesc;
+            
+            // Update close buttons in modals
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.textContent = t.closeBtn;
+            });
             
             // Update questions
             questions.inicio = [t.q1, t.q2, t.q3];
@@ -1825,7 +1844,17 @@
         function displayRecognitions(items) {
             const list = document.getElementById('recognitionList');
             if (items.length === 0) {
-                list.innerHTML = '<div style="text-align:center;padding:20px;font-style:italic;">No hay reconocimientos aún. ¡Sé el primero!</div>';
+                const currentLang = currentLanguage.split('-')[0];
+                const messages = {
+                    'es': 'No hay reconocimientos aún. ¡Sé el primero!',
+                    'en': 'No recognitions yet. Be the first!',
+                    'pt': 'Nenhum reconhecimento ainda. Seja o primeiro!',
+                    'fr': 'Aucune reconnaissance pour le moment. Soyez le premier !',
+                    'de': 'Noch keine Anerkennungen. Seien Sie der Erste!',
+                    'ja': 'まだ承認はありません。最初になってください！',
+                    'zh': '还没有任何认可。成为第一个吧！'
+                };
+                list.innerHTML = `<div style="text-align:center;padding:20px;font-style:italic;">${messages[currentLang] || messages['es']}</div>`;
                 return;
             }
             list.innerHTML = '';
