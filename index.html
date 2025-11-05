@@ -771,7 +771,7 @@
                 
                 // Voice messages
                 voiceWelcome: "Leitor de voz ativado. Kit de Segurança Psicológica Virtual da Takeda. Use as setas ou Tab para navegar entre os elementos. Pressione Enter para ouvir qualquer elemento.",
-                voiceMeetingPhase: "Seção: Fase da Reunião. Aqui você pode selecionar em qual momento da reunião está: Início, Durante ou Encerramento.",
+                voiceMeetingPhase: "Seção: Fase da Reunião. Aqui você pode seleccionar em qual momento da reunião está: Início, Durante ou Encerramento.",
                 voiceColorCards: "Seção: Cartões de Cores. Use esses cartões para expressar seu estado sem interromper: Verde para ouvir, Amarelo para perguntar, Laranja para reformular.",
                 voiceQuickActions: "Seção: Ações Rápidas. Aqui você encontrará ferramentas como Pausa para Respirar, O Farol e acesso ao curso Bloom.",
                 voiceTruthCards: "Seção: Cartas da Verdade. Pequenas frases para grandes conversas. Clique em qualquer carta para copiá-la.",
@@ -1225,6 +1225,13 @@
             return langMap[lang] || 'es-ES';
         }
         
+        // Phase labels object - will be updated when language changes
+        let phaseLabels = { 
+            inicio: '🟢 Inicio', 
+            durante: '🟡 Durante', 
+            cierre: '🔵 Cierre' 
+        };
+        
         function translatePage(lang) {
             const t = translations[lang];
             if (!t) return;
@@ -1246,12 +1253,20 @@
             document.querySelector('.subtitle').textContent = t.subtitle;
             document.querySelector('.boat-text').textContent = t.boatText;
             
-            // Phase section
+            // Phase section - FIXED: Translate the colored phase buttons
             document.querySelector('.meeting-phase h2').textContent = t.phaseTitle;
             document.querySelector('.meeting-phase p').textContent = t.phaseDesc;
-            document.querySelectorAll('.phase-btn')[0].textContent = t.phaseStart;
-            document.querySelectorAll('.phase-btn')[1].textContent = t.phaseDuring;
-            document.querySelectorAll('.phase-btn')[2].textContent = t.phaseEnd;
+            
+            // Update the colored phase buttons
+            const phaseButtons = document.querySelectorAll('.phase-btn');
+            phaseButtons[0].textContent = t.phaseStart; // Inicio/Start
+            phaseButtons[1].textContent = t.phaseDuring; // Durante/During  
+            phaseButtons[2].textContent = t.phaseEnd; // Cierre/Closing
+            
+            // Also update the phase labels used in question cards
+            phaseLabels.inicio = t.phaseStart;
+            phaseLabels.durante = t.phaseDuring;
+            phaseLabels.cierre = t.phaseEnd;
             
             // Color cards
             document.querySelector('.voice-meter h2').textContent = t.colorCardsTitle;
@@ -1735,7 +1750,6 @@
             cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
         };
         
-        const phaseLabels = { inicio: '🟢 Inicio', durante: '🟡 Durante', cierre: '🔵 Cierre' };
         let currentPhase = 'inicio', cardDisplayMode = 'all';
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -1792,7 +1806,7 @@
                 card.className = `question-card ${q.phase}`;
                 const badge = document.createElement('div');
                 badge.className = `question-phase-badge ${q.phase}`;
-                badge.textContent = phaseLabels[q.phase];
+                badge.textContent = phaseLabels[q.phase]; // This now uses the translated labels
                 const text = document.createElement('div');
                 text.textContent = q.text;
                 text.style.paddingTop = '25px';
@@ -1845,16 +1859,8 @@
             const list = document.getElementById('recognitionList');
             if (items.length === 0) {
                 const currentLang = currentLanguage.split('-')[0];
-                const messages = {
-                    'es': 'No hay reconocimientos aún. ¡Sé el primero!',
-                    'en': 'No recognitions yet. Be the first!',
-                    'pt': 'Nenhum reconhecimento ainda. Seja o primeiro!',
-                    'fr': 'Aucune reconnaissance pour le moment. Soyez le premier !',
-                    'de': 'Noch keine Anerkennungen. Seien Sie der Erste!',
-                    'ja': 'まだ承認はありません。最初になってください！',
-                    'zh': '还没有任何认可。成为第一个吧！'
-                };
-                list.innerHTML = `<div style="text-align:center;padding:20px;font-style:italic;">${messages[currentLang] || messages['es']}</div>`;
+                const t = translations[currentLang] || translations.es;
+                list.innerHTML = `<div style="text-align:center;padding:20px;font-style:italic;">${t.noRecognitions}</div>`;
                 return;
             }
             list.innerHTML = '';
@@ -2000,3 +2006,4 @@
     </script>
 </body>
 </html>
+
