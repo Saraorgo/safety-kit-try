@@ -72,6 +72,11 @@
             background: linear-gradient(135deg, #19547b 0%, #ffd89b 100%);
         }
         
+        @keyframes musicPulse { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.1); } 
+        }
+        
         /* Floating voice icon */
         .voice-float-icon {
             position: fixed;
@@ -145,6 +150,11 @@
         .language-menu.active {
             display: block;
             animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .language-option {
@@ -250,22 +260,6 @@
             .modal-content { padding: 20px; }
             .modal-content h3 { font-size: 1.4em; }
             .kit-item { padding: 12px; }
-        }
-
-        /* Permitir selección de texto en las cartas */
-        .question-card {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            cursor: text;
-        }
-
-        .question-card * {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
         }
     </style>
 </head>
@@ -451,8 +445,20 @@
         <div class="language-option" onclick="changeLanguage('en')" data-lang="en">
             🇺🇸 English
         </div>
+        <div class="language-option" onclick="changeLanguage('pt')" data-lang="pt">
+            🇧🇷 Português
+        </div>
+        <div class="language-option" onclick="changeLanguage('fr')" data-lang="fr">
+            🇫🇷 Français
+        </div>
+        <div class="language-option" onclick="changeLanguage('de')" data-lang="de">
+            🇩🇪 Deutsch
+        </div>
         <div class="language-option" onclick="changeLanguage('ja')" data-lang="ja">
             🇯🇵 日本語
+        </div>
+        <div class="language-option" onclick="changeLanguage('zh')" data-lang="zh">
+            🇨🇳 中文
         </div>
     </div>
     
@@ -675,116 +681,16 @@
                 voiceQuickActions: "Section: Quick Actions. Here you'll find tools like Breathing Pause, The Lighthouse, and access to the Bloom course.",
                 voiceTruthCards: "Section: Truth Cards. Small phrases for big conversations. Click on any card to copy it.",
                 voiceRecognition: "Section: Recognition Board. Write acknowledgments to strengthen team trust."
-            },
-            ja: {
-                // Main page elements
-                title: "🧠 心理的安全性キット",
-                subtitle: "大きな会話のための小さなジェスチャー",
-                boatText: "より安全な会話へ共に航海する",
-                phaseTitle: "📍 会議のフェーズ",
-                phaseDesc: "一度にすべてを使用する必要はありません — チームがその日に必要とするものを選択してください",
-                phaseStart: "🟢 開始",
-                phaseDuring: "🟡 途中",
-                phaseEnd: "🔵 終了",
-                colorCardsTitle: "🌈 カラーカード",
-                colorCardsDesc: "中断せずに何かを言いたいですか？カードを使用して会話をスムーズかつ尊重して保ちましょう",
-                greenCard: "緑",
-                greenDesc: "注意深く聞いています",
-                yellowCard: "黄",
-                yellowDesc: "質問があります",
-                orangeCard: "オレンジ",
-                orangeDesc: "これを言い換えましょう",
-                quickActions: "⚡ クイックアクション",
-                breathBtn: "🧘 呼吸ポーズ",
-                faroBtn: "🌟 灯台 - あなたのガイド",
-                bloomBtn: "📱 Bloomコース",
-                truthCardsTitle: "🃏 真実のカード",
-                truthCardsDesc: "大きな会話のための小さなフレーズ。クリックしてクリップボードにコピー",
-                btnAll: "📚 すべて表示",
-                btnCurrent: "🎯 現在のフェーズ",
-                btnShuffle: "🔀 シャッフル",
-                recognitionTitle: "💌 承認ボード",
-                recognitionDesc: "会議の終わりに、小さな感謝の気持ちを書いてください。小さなジェスチャーが信頼とチーム精神を強化します。",
-                recognitionPlaceholder: '例: "忍耐強く聞いてくれてありがとう"',
-                addBtn: "追加 💚",
-                deleteBtn: "🗑️ 削除",
-                closeBtn: "閉じる",
-                noRecognitions: "まだ承認はありません。最初の人になってください！",
-                
-                // Questions
-                q1: "今日の気分はどうですか？",
-                q2: "今週あなたを笑顔にした小さなことは何ですか？",
-                q3: "私たちの会議の目的は何ですか？",
-                q4: "すべての視点を聞きましたか？",
-                q5: "私たちは理解されていますか？",
-                q6: "よりよく理解するために例が必要ですか？",
-                q7: "この会話から得たアイデアは何ですか？",
-                q8: "今日の聞き方について何を評価しますか？",
-                q9: "前進するためにどのようなタスクを持ち帰りますか？",
-                
-                // Breathing section
-                breathTitle: "🧘 呼吸ポーズ",
-                breathText: "深く吸い込んで...ゆっくり吐き出して...",
-                breathDesc: "エネルギーを集中させるために少し時間を取ってください",
-                
-                // Modal content - Faro
-                faroTitle: "🌟 灯台：安全な空間を作るためのあなたのガイド",
-                faroWhatIsTitle: "灯台とは何ですか？",
-                faroWhatIsDesc: "これは、キットが存在する理由、その使用方法、そして各要素がグループの心理的安全性をケアするのにどのように役立つかを思い出すのに役立つ小さなガイドです。",
-                faroWhyTitle: "💬 なぜこのキットは存在するのですか？",
-                faroWhyDesc1: "武田では、心理的安全性は大きなスピーチから生まれるのではなく、小さなジェスチャーから生まれると信じているからです：どのように聞くか、どのように質問するか、そしてどのように他の人のアイデアにスペースを与えるか。",
-                faroWhyDesc2: "このキットは、それらの瞬間にあなたに同行し、信頼を強化し、誰もが自由、尊重、平穏を持って話せる会議を作るためにここにあります。",
-                faroContainsTitle: "🎁 何が含まれていますか？",
-                faroContainsDesc: "各要素には特別な目的があります：",
-                faroColorCardsItem: "<strong>🌈 カラーカード</strong><br>中断せずに何かを言いたいですか？カードを使用してください。会話をスムーズかつ尊重して保つのに役立ちます。",
-                faroTruthCardsItem: "<strong>💌 真実のカード</strong><br>チームが反省や共感を必要としていると感じますか？カードを選んでください：それぞれが感情から考え、つながることを促します。",
-                faroRecognitionItem: "<strong>⭐ 承認ボード</strong><br>感謝の気持ちで締めくくりたいですか？感謝の気持ちや会議中に気づいた前向きなことを書いてください。認めることは信頼を強化します！",
-                faroBloomItem: "<strong>📱 Bloom QRカード</strong><br>心理的安全性についてさらに学び続けたいですか？それをスキャンして、より多くのリソースとアイデアを発見してください。",
-                faroBreathingItem: "<strong>🧘 呼吸ポーズ</strong><br>始める前に呼吸する時間が必要ですか？ガイド付き呼吸ポーズを使用して、開始をマークし、仮想空間でのグループのエネルギーを集中させます。",
-                faroHowTitle: "🪄 どのように使用しますか？",
-                faroHowDesc: "このキットは実際の会議用に作られています：短く、多くのアイデアと少ない時間。<br>一度にすべてを使用する必要はありません — チームがその日に必要とするものを選択してください。",
-                faroStartTitle: "💭 会議を始めますか？",
-                faroStartDesc: "雰囲気を作り出します。呼吸ポーズを使用して開始をマークし、質問や感情を含むカードを選択します。",
-                faroDuringTitle: "👂 会話の最中ですか？",
-                faroDuringDesc: "カラーカードや真実のカードを頼りにしてください。それらは、調和を壊すことなく、表現したり、発言を求めたり、アイデアを明確にしたりするのに役立ちます。",
-                faroEndTitle: "💖 締めくくる時ですか？",
-                faroEndDesc: "誰かに感謝したり、前向きなことを認めたりするために1分ほど時間を取ってください。ボードや終了カードを使用して、学んだことを振り返ります。",
-                faroRememberTitle: "💡 覚えておいてください",
-                faroRememberDesc: "キットを使用することは、働き方を変えることではなく、お互いの聞き方を改善することです。時間の経過とともに、これらの小さな行動により、会議はより安全で、より人間的で、はるかに効果的になります。",
-                
-                // Modal content - Bloom
-                bloomTitle: "🎧 Bloomでの心理的安全性",
-                bloomDesc1: "Bloomのリソースとコースで心理的安全性に関する知識を広げてください。",
-                bloomClick: "リソースにアクセスするにはクリックしてください",
-                bloomDesc2: "アイデアを共有し、失敗から学ぶために誰もが安全だと感じる空間を作るためのツール、コース、リソースを発見してください。",
-                
-                // Notifications
-                translationComplete: "✅ 翻訳完了",
-                voiceReaderActivated: "🔊 音声リーダーがアクティブになりました",
-                voiceReaderDeactivated: "🔊 音声リーダーが非アクティブになりました",
-                musicActivated: "🎵 アンビエントミュージックがアクティブになりました",
-                musicStopped: "🎵 音楽が停止しました",
-                cardCopied: "✅ コピーしました：",
-                errorCopying: "❌ コピーエラー",
-                cardsShuffled: "🔀 カードをシャッフルしました",
-                recognitionAdded: "✅ 承認を追加しました",
-                errorSaving: "❌ 保存エラー",
-                deleted: "🗑️ 削除しました",
-                errorDeleting: "❌ 削除エラー",
-                breathing: "🧘 呼吸... 吸い込む... 吐き出す...",
-                
-                // Voice messages
-                voiceWelcome: "音声リーダーがアクティブになりました。心理的安全性キット。矢印キーまたはTabを使用して要素間を移動します。Enterを押して任意の要素を聞きます。",
-                voiceMeetingPhase: "セクション：会議のフェーズ。ここでは、会議のどの段階にいるかを選択できます：開始、途中、または終了。",
-                voiceColorCards: "セクション：カラーカード。これらのカードを使用して、中断せずに状態を表現します：緑は聞く、黄は質問、オレンジは言い換え。",
-                voiceQuickActions: "セクション：クイックアクション。ここでは、呼吸ポーズ、灯台、Bloomコースへのアクセスなどのツールを見つけます。",
-                voiceTruthCards: "セクション：真実のカード。大きな会話のための小さなフレーズ。任意のカードをクリックしてコピーします。",
-                voiceRecognition: "セクション：承認ボード。チームの信頼を強化するために感謝の気持ちを書いてください。"
             }
         };
 
         // Sound effects using Web Audio API
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let audioContext;
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            console.warn('Web Audio API not supported:', e);
+        }
         
         // Background music generator
         let musicOscillators = [];
@@ -800,7 +706,11 @@
             const langMap = {
                 'es': 'es-ES',
                 'en': 'en-US',
-                'ja': 'ja-JP'
+                'pt': 'pt-BR',
+                'fr': 'fr-FR',
+                'de': 'de-DE',
+                'ja': 'ja-JP',
+                'zh': 'zh-CN'
             };
             return langMap[lang] || 'es-ES';
         }
@@ -811,15 +721,6 @@
             durante: '🟡 Durante', 
             cierre: '🔵 Cierre' 
         };
-        
-        // Questions object - will be updated when language changes
-        let questions = {
-            inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
-            durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
-            cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
-        };
-        
-        let currentPhase = 'inicio', cardDisplayMode = 'all';
         
         // Función auxiliar para obtener texto traducido
         function getTranslatedText(key) {
@@ -909,12 +810,10 @@
                 btn.textContent = t.closeBtn;
             });
             
-            // Update questions - ¡ESTA ES LA PARTE MÁS IMPORTANTE!
+            // Update questions
             questions.inicio = [t.q1, t.q2, t.q3];
             questions.durante = [t.q4, t.q5, t.q6];
             questions.cierre = [t.q7, t.q8, t.q9];
-            
-            // Update questions display
             updateQuestions();
             
             // Update delete buttons
@@ -929,6 +828,17 @@
             
             // Save language preference
             localStorage.setItem('takedaLanguage', lang);
+            
+            // Re-apply voice reading if it's active
+            if (isVoiceReading) {
+                // First disable to clean up
+                disableVoiceReading();
+                // Then re-enable to apply to new content
+                setTimeout(() => {
+                    enableVoiceReading();
+                    showNotification(t.voiceReaderActivated);
+                }, 100);
+            }
             
             setTimeout(() => {
                 playSound('success');
@@ -1000,27 +910,33 @@
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = currentLanguage; // Usar el idioma actual
+                utterance.lang = currentLanguage;
                 utterance.rate = 0.9;
                 utterance.pitch = 1;
                 utterance.volume = 0.8;
                 
-                // Esperar a que las voces se carguen correctamente
-                function speakWithVoice() {
-                    const voices = window.speechSynthesis.getVoices();
-                    if (voices.length > 0) {
-                        // Buscar una voz que coincida con el idioma actual
+                // Wait for voices to be loaded
+                const voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    const matchingVoice = voices.find(voice => 
+                        voice.lang.startsWith(currentLanguage.split('-')[0])
+                    );
+                    if (matchingVoice) {
+                        utterance.voice = matchingVoice;
+                    }
+                } else {
+                    // If voices aren't loaded yet, try again after a short delay
+                    setTimeout(() => {
+                        const voices = window.speechSynthesis.getVoices();
                         const matchingVoice = voices.find(voice => 
-                            voice.lang === currentLanguage || voice.lang.startsWith(currentLanguage.split('-')[0])
+                            voice.lang.startsWith(currentLanguage.split('-')[0])
                         );
                         if (matchingVoice) {
                             utterance.voice = matchingVoice;
                         }
                         window.speechSynthesis.speak(utterance);
-                    } else {
-                        // Si las voces no están cargadas, intentar de nuevo
-                        setTimeout(speakWithVoice, 100);
-                    }
+                    }, 100);
+                    return;
                 }
                 
                 utterance.onend = function() {
@@ -1035,7 +951,7 @@
                 };
                 
                 currentUtterance = utterance;
-                speakWithVoice();
+                window.speechSynthesis.speak(utterance);
                 
                 const icon = document.getElementById('voiceIcon');
                 if (icon) icon.classList.add('speaking');
@@ -1203,6 +1119,8 @@
         }
         
         function createBackgroundMusic() {
+            if (!audioContext) return;
+            
             // Create master gain node
             musicGainNode = audioContext.createGain();
             musicGainNode.gain.value = 0;
@@ -1306,6 +1224,8 @@
         }
         
         function playSound(type) {
+            if (!audioContext) return;
+            
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
@@ -1361,11 +1281,19 @@
             }
         }
         
+        const questions = {
+            inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
+            durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
+            cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
+        };
+        
+        let currentPhase = 'inicio', cardDisplayMode = 'all';
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Load saved language preference or detect browser language
             const savedLanguage = localStorage.getItem('takedaLanguage');
             const browserLang = navigator.language.substring(0, 2);
-            const supportedLangs = ['es', 'en', 'ja'];
+            const supportedLangs = ['es', 'en', 'pt', 'fr', 'de', 'ja', 'zh'];
             
             let initialLang = 'es'; // Default to Spanish
             
@@ -1422,14 +1350,8 @@
                 card.appendChild(badge);
                 card.appendChild(text);
                 
-                card.onclick = (event) => { 
-                    // Permitir selección de texto sin copiar automáticamente
-                    // El usuario puede seleccionar y copiar manualmente
-                };
-
-                // Agregar doble clic para copiar automáticamente
-                card.ondblclick = (event) => {
-                    event.preventDefault();
+                // Add click handler for copying to clipboard
+                card.onclick = () => { 
                     playSound('click');
                     const currentLang = currentLanguage.split('-')[0];
                     const t = translations[currentLang] || translations.es;
@@ -1438,19 +1360,74 @@
                         const notificationText = t.cardCopied + q.text.substring(0, 30) + '...';
                         showNotification(notificationText);
                         
+                        // También hablar lo que se copió si el lector de voz está activo
                         if (isVoiceReading) {
                             speakText(notificationText);
                         }
                     }).catch(() => {
                         showNotification(t.errorCopying);
+                        
                         if (isVoiceReading) {
                             speakText(t.errorCopying);
                         }
                     });
                 };
                 
+                // Apply voice reading if it's active
+                if (isVoiceReading) {
+                    applyVoiceReadingToElement(card);
+                }
+                
                 container.appendChild(card);
             });
+        }
+        
+        // New function to apply voice reading to individual elements
+        function applyVoiceReadingToElement(element) {
+            if (element.getAttribute('data-voice-enabled') === 'true') return; // Skip if already enabled
+            
+            element.style.cursor = 'pointer';
+            element.setAttribute('data-voice-enabled', 'true');
+            element.setAttribute('tabindex', '0');
+            element.setAttribute('role', 'button');
+            
+            // Add descriptive aria-label
+            if (!element.getAttribute('aria-label-original')) {
+                let description = element.textContent.trim();
+                if (element.classList.contains('question-card')) {
+                    description = getTranslatedText('truthCardsTitle') + ': ' + description;
+                } else if (element.classList.contains('voice-card')) {
+                    description = getTranslatedText('colorCardsTitle') + ': ' + description;
+                } else if (element.classList.contains('phase-btn')) {
+                    description = getTranslatedText('phaseTitle') + ': ' + description;
+                } else if (element.tagName === 'H1') {
+                    description = 'Título principal: ' + description;
+                } else if (element.tagName === 'H2') {
+                    description = 'Sección: ' + description;
+                } else if (element.tagName === 'BUTTON') {
+                    description = 'Botón: ' + description;
+                }
+                element.setAttribute('aria-label-original', description);
+                element.setAttribute('aria-label', description);
+            }
+            
+            const clickHandler = function(e) {
+                handleVoiceClick.call(this, e);
+            };
+            
+            const keyHandler = function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleVoiceClick.call(this, e);
+                }
+            };
+            
+            element.addEventListener('click', clickHandler);
+            element.addEventListener('keypress', keyHandler);
+            
+            // Store handlers for cleanup
+            element._voiceClickHandler = clickHandler;
+            element._voiceKeyHandler = keyHandler;
         }
         
         function shuffleCards() {
@@ -1504,6 +1481,13 @@
                 };
                 div.appendChild(text);
                 div.appendChild(btn);
+                
+                // Apply voice reading if it's active
+                if (isVoiceReading) {
+                    applyVoiceReadingToElement(div);
+                    applyVoiceReadingToElement(text);
+                }
+                
                 list.appendChild(div);
             });
         }
@@ -1635,3 +1619,4 @@
     </script>
 </body>
 </html>
+
