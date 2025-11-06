@@ -251,6 +251,22 @@
             .modal-content h3 { font-size: 1.4em; }
             .kit-item { padding: 12px; }
         }
+
+        /* Permitir selección de texto en las cartas */
+        .question-card {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            cursor: text;
+        }
+
+        .question-card * {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+        }
     </style>
 </head>
 <body>
@@ -435,20 +451,8 @@
         <div class="language-option" onclick="changeLanguage('en')" data-lang="en">
             🇺🇸 English
         </div>
-        <div class="language-option" onclick="changeLanguage('pt')" data-lang="pt">
-            🇧🇷 Português
-        </div>
-        <div class="language-option" onclick="changeLanguage('fr')" data-lang="fr">
-            🇫🇷 Français
-        </div>
-        <div class="language-option" onclick="changeLanguage('de')" data-lang="de">
-            🇩🇪 Deutsch
-        </div>
         <div class="language-option" onclick="changeLanguage('ja')" data-lang="ja">
             🇯🇵 日本語
-        </div>
-        <div class="language-option" onclick="changeLanguage('zh')" data-lang="zh">
-            🇨🇳 中文
         </div>
     </div>
     
@@ -464,7 +468,7 @@
         const translations = {
             es: {
                 // Main page elements
-                title: "🧠 Kit de Seguridad Psicológica Virtual - Takeda",
+                title: "🧠 Kit de seguridad psicológica",
                 subtitle: "Pequeños gestos para grandes conversaciones",
                 boatText: "Navegando juntos hacia conversaciones más seguras",
                 phaseTitle: "📍 Fase de la Reunión",
@@ -560,7 +564,7 @@
                 breathing: "🧘 Respira... Inhala... Exhala...",
                 
                 // Voice messages
-                voiceWelcome: "Lector de voz activado. Kit de Seguridad Psicológica Virtual de Takeda. Usa las teclas de flecha o Tab para navegar entre elementos. Presiona Enter para escuchar cualquier elemento.",
+                voiceWelcome: "Lector de voz activado. Kit de Seguridad Psicológica. Usa las teclas de flecha o Tab para navegar entre elementos. Presiona Enter para escuchar cualquier elemento.",
                 voiceMeetingPhase: "Sección: Fase de la Reunión. Aquí puedes seleccionar en qué momento de la reunión estás: Inicio, Durante, o Cierre.",
                 voiceColorCards: "Sección: Tarjetas de Colores. Usa estas tarjetas para expresar tu estado sin interrumpir: Verde para escuchar, Amarillo para preguntar, Naranja para reformular.",
                 voiceQuickActions: "Sección: Acciones Rápidas. Aquí encontrarás herramientas como Pausa de Respiración, El Faro y acceso al curso Bloom.",
@@ -569,7 +573,7 @@
             },
             en: {
                 // Main page elements
-                title: "🧠 Virtual Psychological Safety Kit - Takeda",
+                title: "🧠 Psychological Safety Kit",
                 subtitle: "Small gestures for great conversations",
                 boatText: "Sailing together towards safer conversations",
                 phaseTitle: "📍 Meeting Phase",
@@ -665,348 +669,33 @@
                 breathing: "🧘 Breathe... Inhale... Exhale...",
                 
                 // Voice messages
-                voiceWelcome: "Voice reader activated. Takeda Virtual Psychological Safety Kit. Use arrow keys or Tab to navigate between elements. Press Enter to hear any element.",
+                voiceWelcome: "Voice reader activated. Psychological Safety Kit. Use arrow keys or Tab to navigate between elements. Press Enter to hear any element.",
                 voiceMeetingPhase: "Section: Meeting Phase. Here you can select which moment of the meeting you're in: Start, During, or Closing.",
                 voiceColorCards: "Section: Color Cards. Use these cards to express your state without interrupting: Green for listening, Yellow for asking, Orange for rephrasing.",
                 voiceQuickActions: "Section: Quick Actions. Here you'll find tools like Breathing Pause, The Lighthouse, and access to the Bloom course.",
                 voiceTruthCards: "Section: Truth Cards. Small phrases for big conversations. Click on any card to copy it.",
                 voiceRecognition: "Section: Recognition Board. Write acknowledgments to strengthen team trust."
             },
-            pt: {
-                // Main page elements
-                title: "🧠 Kit de Segurança Psicológica Virtual - Takeda",
-                subtitle: "Pequenos gestos para grandes conversas",
-                boatText: "Navegando juntos para conversas mais seguras",
-                phaseTitle: "📍 Fase da Reunião",
-                phaseDesc: "Você não precisa usar tudo de uma vez — escolha o que a equipe precisa naquele dia",
-                phaseStart: "🟢 Início",
-                phaseDuring: "🟡 Durante",
-                phaseEnd: "🔵 Encerramento",
-                colorCardsTitle: "🌈 Cartões de Cores",
-                colorCardsDesc: "Quer dizer algo sem interromper? Use um cartão para manter a conversa fluida e respeitosa",
-                greenCard: "Verde",
-                greenDesc: "Estou ouvindo atentamente",
-                yellowCard: "Amarelo",
-                yellowDesc: "Tenho uma pergunta",
-                orangeCard: "Laranja",
-                orangeDesc: "Vamos reformular isso",
-                quickActions: "⚡ Ações Rápidas",
-                breathBtn: "🧘 Pausa para Respirar",
-                faroBtn: "🌟 O Farol - Seu Guia",
-                bloomBtn: "📱 Curso Bloom",
-                truthCardsTitle: "🃏 Cartas da Verdade",
-                truthCardsDesc: "Pequenas frases para grandes conversas. Clique para copiar",
-                btnAll: "📚 Ver Todas",
-                btnCurrent: "🎯 Fase Atual",
-                btnShuffle: "🔀 Embaralhar",
-                recognitionTitle: "💌 Quadro de Reconhecimento",
-                recognitionDesc: "No final da reunião, escreva um pequeno agradecimento. Pequenos gestos fortalecem a confiança e o espírito de equipe.",
-                recognitionPlaceholder: 'Ex: "Obrigado por ouvir com paciência"',
-                addBtn: "Adicionar 💚",
-                deleteBtn: "🗑️ Excluir",
-                closeBtn: "Fechar",
-                noRecognitions: "Nenhum reconhecimento ainda. Seja o primeiro!",
-                
-                // Questions
-                q1: "Como nos sentimos hoje?",
-                q2: "O que é algo pequeno que te fez sorrir esta semana?",
-                q3: "Qual é o objetivo da nossa reunião?",
-                q4: "Já ouvimos todos os pontos de vista?",
-                q5: "Estamos nos fazendo entender?",
-                q6: "Precisamos de um exemplo para entender melhor?",
-                q7: "Qual é a ideia que levo desta conversa?",
-                q8: "O que apreciamos em como nos ouvimos hoje?",
-                q9: "Que tarefas levamos para continuar avançando?",
-                
-                // Breathing section
-                breathTitle: "🧘 Pausa para Respirar",
-                breathText: "Inspire profundamente... Expire devagar...",
-                breathDesc: "Reserve um momento para centralizar sua energia",
-                
-                // Modal content - Faro
-                faroTitle: "🌟 O Farol: seu guia para criar espaços seguros",
-                faroWhatIsTitle: "O que é O Farol?",
-                faroWhatIsDesc: "É um pequeno guia que ajuda você a lembrar por que o kit existe, como usá-lo e como cada elemento pode ajudá-lo a cuidar da segurança psicológica do grupo.",
-                faroWhyTitle: "💬 Por que este kit existe?",
-                faroWhyDesc1: "Porque na Takeda acreditamos que a segurança psicológica não nasce de grandes discursos, mas de pequenos gestos: como ouvimos, como perguntamos e como damos espaço às ideias dos outros.",
-                faroWhyDesc2: "Este kit está aqui para acompanhá-lo nesses momentos, fortalecer a confiança e criar reuniões onde todos possam falar com liberdade, respeito e serenidade.",
-                faroContainsTitle: "🎁 O que contém?",
-                faroContainsDesc: "Cada elemento tem um propósito especial:",
-                faroColorCardsItem: "<strong>🌈 Cartões de cores</strong><br>Quer dizer algo sem interromper? Use um cartão. Eles ajudam a manter a conversa fluida e respeitosa.",
-                faroTruthCardsItem: "<strong>💌 Cartas da verdade</strong><br>Sente que sua equipe precisa refletir ou empatizar? Escolha uma carta: cada uma convida a pensar e conectar a partir da emoção.",
-                faroRecognitionItem: "<strong>⭐ Quadro de reconhecimento</strong><br>Quer encerrar com gratidão? Escreva um agradecimento ou algo positivo que você notou durante a reunião. Reconhecer fortalece a confiança!",
-                faroBloomItem: "<strong>📱 Cartão QR do Bloom</strong><br>Gostaria de continuar aprendendo sobre segurança psicológica? Escaneie e descubra mais recursos e ideias.",
-                faroBreathingItem: "<strong>🧘 Pausa para Respirar</strong><br>Precisa de um momento para respirar antes de começar? Use a pausa de respiração guiada para marcar o início e centralizar a energia do grupo no espaço virtual.",
-                faroHowTitle: "🪄 Como é usado?",
-                faroHowDesc: "Este kit é feito para reuniões reais: curtas, com muitas ideias e pouco tempo.<br>Você não precisa usar tudo de uma vez —escolha o que a equipe precisa naquele dia—.",
-                faroStartTitle: "💭 Vai começar uma reunião?",
-                faroStartDesc: "Crie o ambiente. Use a pausa de respiração para marcar o início e escolha um cartão com uma pergunta ou emoção.",
-                faroDuringTitle: "👂 Estão em plena conversa?",
-                faroDuringDesc: "Apoie-se nos cartões de cores ou nas cartas da verdade. Servem para expressar, pedir a palavra ou esclarecer ideias sem quebrar a harmonia.",
-                faroEndTitle: "💖 É hora de encerrar?",
-                faroEndDesc: "Tire um minuto para agradecer ou reconhecer algo positivo. Use o quadro ou uma carta de encerramento para refletir sobre o que foi aprendido.",
-                faroRememberTitle: "💡 Lembre-se",
-                faroRememberDesc: "Usar o kit não é mudar a forma de trabalhar, mas melhorar como nos escutamos. Com o tempo, essas pequenas ações tornam as reuniões mais seguras, mais humanas e muito mais eficazes.",
-                
-                // Modal content - Bloom
-                bloomTitle: "🎧 Segurança Psicológica no Bloom",
-                bloomDesc1: "Amplie seus conhecimentos sobre segurança psicológica com nossos recursos e cursos no Bloom.",
-                bloomClick: "Clique para acessar os recursos",
-                bloomDesc2: "Descubra ferramentas, cursos e recursos para criar espaços onde todos se sintam seguros para compartilhar ideias e aprender com os erros.",
-                
-                // Notifications
-                translationComplete: "✅ Tradução concluída",
-                voiceReaderActivated: "🔊 Leitor de voz ativado",
-                voiceReaderDeactivated: "🔊 Leitor de voz desativado",
-                musicActivated: "🎵 Música ambiente ativada",
-                musicStopped: "🎵 Música parada",
-                cardCopied: "✅ Copiado: ",
-                errorCopying: "❌ Erro ao copiar",
-                cardsShuffled: "🔀 Cartas embaralhadas",
-                recognitionAdded: "✅ Reconhecimento adicionado",
-                errorSaving: "❌ Erro ao salvar",
-                deleted: "🗑️ Excluído",
-                errorDeleting: "❌ Erro ao excluir",
-                breathing: "🧘 Respire... Inspire... Expire...",
-                
-                // Voice messages
-                voiceWelcome: "Leitor de voz ativado. Kit de Segurança Psicológica Virtual da Takeda. Use as setas ou Tab para navegar entre os elementos. Pressione Enter para ouvir qualquer elemento.",
-                voiceMeetingPhase: "Seção: Fase da Reunião. Aqui você pode seleccionar em qual momento da reunião está: Início, Durante ou Encerramento.",
-                voiceColorCards: "Seção: Cartões de Cores. Use esses cartões para expressar seu estado sem interromper: Verde para ouvir, Amarelo para perguntar, Laranja para reformular.",
-                voiceQuickActions: "Seção: Ações Rápidas. Aqui você encontrará ferramentas como Pausa para Respirar, O Farol e acesso ao curso Bloom.",
-                voiceTruthCards: "Seção: Cartas da Verdade. Pequenas frases para grandes conversas. Clique em qualquer carta para copiá-la.",
-                voiceRecognition: "Seção: Quadro de Reconhecimento. Escreva agradecimentos para fortalecer a confiança da equipe."
-            },
-            fr: {
-                // Main page elements
-                title: "🧠 Kit de Sécurité Psychologique Virtuelle - Takeda",
-                subtitle: "De petits gestes pour de grandes conversations",
-                boatText: "Naviguer ensemble vers des conversations plus sûres",
-                phaseTitle: "📍 Phase de la Réunion",
-                phaseDesc: "Vous n'avez pas à tout utiliser à la fois — choisissez ce dont l'équipe a besoin ce jour-là",
-                phaseStart: "🟢 Début",
-                phaseDuring: "🟡 Pendant",
-                phaseEnd: "🔵 Clôture",
-                colorCardsTitle: "🌈 Cartes de Couleurs",
-                colorCardsDesc: "Vous voulez dire quelque chose sans interrompre ? Utilisez une carte pour garder la conversation fluide et respectueuse",
-                greenCard: "Vert",
-                greenDesc: "J'écoute attentivement",
-                yellowCard: "Jaune",
-                yellowDesc: "J'ai une question",
-                orangeCard: "Orange",
-                orangeDesc: "Reformulons cela",
-                quickActions: "⚡ Actions Rapides",
-                breathBtn: "🧘 Pause Respiration",
-                faroBtn: "🌟 Le Phare - Votre Guide",
-                bloomBtn: "📱 Cours Bloom",
-                truthCardsTitle: "🃏 Cartes de Vérité",
-                truthCardsDesc: "De petites phrases pour de grandes conversations. Cliquez pour copier dans le presse-papiers",
-                btnAll: "📚 Voir Toutes",
-                btnCurrent: "🎯 Phase Actuelle",
-                btnShuffle: "🔀 Mélanger",
-                recognitionTitle: "💌 Tableau de Reconnaissance",
-                recognitionDesc: "À la fin de la réunion, écrivez un petit remerciement. De petits gestes renforcent la confiance et l'esprit d'équipe.",
-                recognitionPlaceholder: 'Ex: "Merci d\'avoir écouté patiemment"',
-                addBtn: "Ajouter 💚",
-                deleteBtn: "🗑️ Supprimer",
-                closeBtn: "Fermer",
-                noRecognitions: "Aucune reconnaissance pour le moment. Soyez le premier !",
-                
-                // Questions
-                q1: "Comment nous sentons-nous aujourd'hui ?",
-                q2: "Qu'est-ce qui vous a fait sourire cette semaine ?",
-                q3: "Quel est l'objectif de notre réunion ?",
-                q4: "Avons-nous entendu tous les points de vue ?",
-                q5: "Nous faisons-nous comprendre ?",
-                q6: "Avons-nous besoin d'un exemple pour mieux comprendre ?",
-                q7: "Quelle est l'idée que je retiens de cette conversation ?",
-                q8: "Qu'apprécions-nous dans la façon dont nous nous sommes écoutés aujourd'hui ?",
-                q9: "Quelles tâches prenons-nous pour continuer à avancer ?",
-                
-                // Breathing section
-                breathTitle: "🧘 Pause Respiration",
-                breathText: "Inspirez profondément... Expirez lentement...",
-                breathDesc: "Prenez un moment pour recentrer votre énergie",
-                
-                // Modal content - Faro
-                faroTitle: "🌟 Le Phare : votre guide pour créer des espaces sûrs",
-                faroWhatIsTitle: "Qu'est-ce que Le Phare ?",
-                faroWhatIsDesc: "C'est un petit guide qui vous aide à vous rappeler pourquoi le kit existe, comment l'utiliser et comment chaque élément peut vous aider à prendre soin de la sécurité psychologique du groupe.",
-                faroWhyTitle: "💬 Pourquoi ce kit existe-t-il ?",
-                faroWhyDesc1: "Parce que chez Takeda, nous croyons que la sécurité psychologique ne naît pas de grands discours, mais de petits gestes : comment nous écoutons, comment nous posons des questions et comment nous donnons de l'espace aux idées des autres.",
-                faroWhyDesc2: "Ce kit est là pour vous accompagner dans ces moments, renforcer la confiance et créer des réunions où chacun peut parler avec liberté, respect et sérénité.",
-                faroContainsTitle: "🎁 Que contient-il ?",
-                faroContainsDesc: "Chaque élément a un but spécial :",
-                faroColorCardsItem: "<strong>🌈 Cartes de couleurs</strong><br>Vous voulez dire quelque chose sans interrompre ? Utilisez une carte. Elles aident à garder la conversation fluide et respectueuse.",
-                faroTruthCardsItem: "<strong>💌 Cartes de vérité</strong><br>Vous sentez que votre équipe a besoin de réfléchir ou d'empathie ? Choisissez une carte : chacune invite à penser et à se connecter à partir de l'émotion.",
-                faroRecognitionItem: "<strong>⭐ Tableau de reconnaissance</strong><br>Vous voulez clôturer avec gratitude ? Écrivez un remerciement ou quelque chose de positif que vous avez remarqué pendant la réunion. Reconnaître renforce la confiance !",
-                faroBloomItem: "<strong>📱 Carte QR Bloom</strong><br>Vous souhaitez continuer à apprendre sur la sécurité psychologique ? Scannez-la et découvrez plus de ressources et d'idées.",
-                faroBreathingItem: "<strong>🧘 Pause Respiration</strong><br>Besoin d'un moment pour respirer avant de commencer ? Utilisez la pause de respiration guidée pour marquer le début et centrer l'énergie du groupe dans l'espace virtuel.",
-                faroHowTitle: "🪄 Comment l'utiliser ?",
-                faroHowDesc: "Ce kit est fait pour des réunions réelles : courtes, avec beaucoup d'idées et peu de temps.<br>Vous n'avez pas à tout utiliser à la fois — choisissez ce dont l'équipe a besoin ce jour-là —.",
-                faroStartTitle: "💭 Vous allez commencer une réunion ?",
-                faroStartDesc: "Créez l'ambiance. Utilisez la pause respiration pour marquer le début et choisissez une carte avec une question ou une émotion.",
-                faroDuringTitle: "👂 Vous êtes en pleine conversation ?",
-                faroDuringDesc: "Appuyez-vous sur les cartes de couleurs ou les cartes de vérité. Elles servent à exprimer, demander la parole ou clarifier des idées sans rompre l'harmonie.",
-                faroEndTitle: "💖 C'est le moment de clôturer ?",
-                faroEndDesc: "Prenez une minute pour remercier ou reconnaître quelque chose de positif. Utilisez le tableau ou une carte de clôture pour réfléchir à ce qui a été appris.",
-                faroRememberTitle: "💡 Rappelez-vous",
-                faroRememberDesc: "Utiliser le kit ne consiste pas à changer notre façon de travailler, mais à améliorer la façon dont nous nous écoutons. Avec le temps, ces petites actions rendent les réunions plus sûres, plus humaines et beaucoup plus efficaces.",
-                
-                // Modal content - Bloom
-                bloomTitle: "🎧 Sécurité Psychologique dans Bloom",
-                bloomDesc1: "Élargissez vos connaissances sur la sécurité psychologique avec nos ressources et cours dans Bloom.",
-                bloomClick: "Cliquez pour accéder aux ressources",
-                bloomDesc2: "Découvrez des outils, des cours et des ressources pour créer des espaces où chacun se sent en sécurité pour partager des idées et apprendre des erreurs.",
-                
-                // Notifications
-                translationComplete: "✅ Traduction terminée",
-                voiceReaderActivated: "🔊 Lecteur vocal activé",
-                voiceReaderDeactivated: "🔊 Lecteur vocal désactivé",
-                musicActivated: "🎵 Musique d'ambiance activée",
-                musicStopped: "🎵 Musique arrêtée",
-                cardCopied: "✅ Copié : ",
-                errorCopying: "❌ Erreur de copie",
-                cardsShuffled: "🔀 Cartes mélangées",
-                recognitionAdded: "✅ Reconnaissance ajoutée",
-                errorSaving: "❌ Erreur de sauvegarde",
-                deleted: "🗑️ Supprimé",
-                errorDeleting: "❌ Erreur de suppression",
-                breathing: "🧘 Respirez... Inspirez... Expirez...",
-                
-                // Voice messages
-                voiceWelcome: "Lecteur vocal activé. Kit de Sécurité Psychologique Virtuelle de Takeda. Utilisez les touches fléchées ou Tab pour naviguer entre les éléments. Appuyez sur Entrée pour entendre n'importe quel élément.",
-                voiceMeetingPhase: "Section : Phase de Réunion. Ici, vous pouvez sélectionner à quel moment de la réunion vous êtes : Début, Pendant ou Clôture.",
-                voiceColorCards: "Section : Cartes de Couleurs. Utilisez ces cartes pour exprimer votre état sans interrompre : Vert pour écouter, Jaune pour demander, Orange pour reformuler.",
-                voiceQuickActions: "Section : Actions Rapides. Ici, vous trouverez des outils comme Pause Respiration, Le Phare et l'accès au cours Bloom.",
-                voiceTruthCards: "Section : Cartes de Vérité. De petites phrases pour de grandes conversations. Cliquez sur n'importe quelle carte pour la copier.",
-                voiceRecognition: "Section : Tableau de Reconnaissance. Écrivez des remerciements pour renforcer la confiance de l'équipe."
-            },
-            de: {
-                // Main page elements
-                title: "🧠 Virtuelles Psychologisches Sicherheits-Kit - Takeda",
-                subtitle: "Kleine Gesten für große Gespräche",
-                boatText: "Gemeinsam zu sichereren Gesprächen segeln",
-                phaseTitle: "📍 Besprechungsphase",
-                phaseDesc: "Sie müssen nicht alles auf einmal verwenden — wählen Sie aus, was das Team an diesem Tag benötigt",
-                phaseStart: "🟢 Start",
-                phaseDuring: "🟡 Während",
-                phaseEnd: "🔵 Abschluss",
-                colorCardsTitle: "🌈 Farbkarten",
-                colorCardsDesc: "Möchten Sie etwas sagen, ohne zu unterbrechen? Verwenden Sie eine Karte, um das Gespräch fließend und respektvoll zu halten",
-                greenCard: "Grün",
-                greenDesc: "Ich höre aufmerksam zu",
-                yellowCard: "Gelb",
-                yellowDesc: "Ich habe eine Frage",
-                orangeCard: "Orange",
-                orangeDesc: "Lassen Sie uns das umformulieren",
-                quickActions: "⚡ Schnellaktionen",
-                breathBtn: "🧘 Atempause",
-                faroBtn: "🌟 Der Leuchtturm - Ihr Leitfaden",
-                bloomBtn: "📱 Bloom-Kurs",
-                truthCardsTitle: "🃏 Wahrheitskarten",
-                truthCardsDesc: "Kleine Sätze für große Gespräche. Klicken Sie, um in die Zwischenablage zu kopieren",
-                btnAll: "📚 Alle anzeigen",
-                btnCurrent: "🎯 Aktuelle Phase",
-                btnShuffle: "🔀 Mischen",
-                recognitionTitle: "💌 Anerkennungsboard",
-                recognitionDesc: "Schreiben Sie am Ende der Besprechung ein kleines Dankeschön. Kleine Gesten stärken Vertrauen und Teamgeist.",
-                recognitionPlaceholder: 'Z.B: "Danke für das geduldige Zuhören"',
-                addBtn: "Hinzufügen 💚",
-                deleteBtn: "🗑️ Löschen",
-                closeBtn: "Schließen",
-                noRecognitions: "Noch keine Anerkennungen. Seien Sie der Erste!",
-                
-                // Questions
-                q1: "Wie fühlen wir uns heute?",
-                q2: "Was hat dich diese Woche zum Lächeln gebracht?",
-                q3: "Was ist das Ziel unseres Treffens?",
-                q4: "Haben wir alle Standpunkte gehört?",
-                q5: "Verstehen wir uns gegenseitig?",
-                q6: "Brauchen wir ein Beispiel, um es besser zu verstehen?",
-                q7: "Welche Idee nehme ich aus diesem Gespräch mit?",
-                q8: "Was schätzen wir daran, wie wir heute zugehört haben?",
-                q9: "Welche Aufgaben nehmen wir mit, um weiter voranzukommen?",
-                
-                // Breathing section
-                breathTitle: "🧘 Atempause",
-                breathText: "Tief einatmen... Langsam ausatmen...",
-                breathDesc: "Nehmen Sie sich einen Moment, um Ihre Energie zu zentrieren",
-                
-                // Modal content - Faro
-                faroTitle: "🌟 Der Leuchtturm: Ihr Leitfaden für sichere Räume",
-                faroWhatIsTitle: "Was ist der Leuchtturm?",
-                faroWhatIsDesc: "Es ist ein kleiner Leitfaden, der Ihnen hilft, sich daran zu erinnern, warum das Kit existiert, wie man es verwendet und wie jedes Element Ihnen helfen kann, sich um die psychologische Sicherheit der Gruppe zu kümmern.",
-                faroWhyTitle: "💬 Warum existiert dieses Kit?",
-                faroWhyDesc1: "Weil wir bei Takeda glauben, dass psychologische Sicherheit nicht aus großen Reden entsteht, sondern aus kleinen Gesten: wie wir zuhören, wie wir Fragen stellen und wie wir den Ideen anderer Raum geben.",
-                faroWhyDesc2: "Dieses Kit ist hier, um Sie in diesen Momenten zu begleiten, Vertrauen zu stärken und Besprechungen zu schaffen, in denen jeder mit Freiheit, Respekt und Gelassenheit sprechen kann.",
-                faroContainsTitle: "🎁 Was enthält es?",
-                faroContainsDesc: "Jedes Element hat einen besonderen Zweck:",
-                faroColorCardsItem: "<strong>🌈 Farbkarten</strong><br>Möchten Sie etwas sagen, ohne zu unterbrechen? Verwenden Sie eine Karte. Sie helfen, das Gespräch fließend und respektvoll zu halten.",
-                faroTruthCardsItem: "<strong>💌 Wahrheitskarten</strong><br>Glauben Sie, Ihr Team muss reflektieren oder Empathie zeigen? Wählen Sie eine Karte: Jede lädt zum Nachdenken und zur emotionalen Verbindung ein.",
-                faroRecognitionItem: "<strong>⭐ Anerkennungsboard</strong><br>Möchten Sie mit Dankbarkeit abschließen? Schreiben Sie ein Dankeschön oder etwas Positives, das Ihnen während der Besprechung aufgefallen ist. Anerkennung stärkt das Vertrauen!",
-                faroBloomItem: "<strong>📱 Bloom QR-Karte</strong><br>Möchten Sie weiterhin etwas über psychologische Sicherheit lernen? Scannen Sie sie und entdecken Sie weitere Ressourcen und Ideen.",
-                faroBreathingItem: "<strong>🧘 Atempause</strong><br>Brauchen Sie einen Moment zum Atmen, bevor Sie beginnen? Verwenden Sie die geführte Atempause, um den Beginn zu markieren und die Energie der Gruppe im virtuellen Raum zu zentrieren.",
-                faroHowTitle: "🪄 Wie wird es verwendet?",
-                faroHowDesc: "Dieses Kit ist für echte Besprechungen gemacht: kurz, mit vielen Ideen und wenig Zeit.<br>Sie müssen nicht alles auf einmal verwenden — wählen Sie aus, was das Team an diesem Tag benötigt —.",
-                faroStartTitle: "💭 Beginnen Sie eine Besprechung?",
-                faroStartDesc: "Schaffen Sie die Atmosphäre. Verwenden Sie die Atempause, um den Beginn zu markieren, und wählen Sie eine Karte mit einer Frage oder Emotion.",
-                faroDuringTitle: "👂 Befinden Sie sich mitten in einem Gespräch?",
-                faroDuringDesc: "Stützen Sie sich auf die Farbkarten oder Wahrheitskarten. Sie dienen dazu, sich auszudrücken, das Wort zu erbitten oder Ideen zu klären, ohne die Harmonie zu stören.",
-                faroEndTitle: "💖 Ist es Zeit zum Abschließen?",
-                faroEndDesc: "Nehmen Sie sich eine Minute Zeit, um jemandem zu danken oder etwas Positives anzuerkennen. Verwenden Sie das Board oder eine Abschlusskarte, um über das Gelernte nachzudenken.",
-                faroRememberTitle: "💡 Denken Sie daran",
-                faroRememberDesc: "Das Kit zu verwenden bedeutet nicht, die Arbeitsweise zu ändern, sondern zu verbessern, wie wir einander zuhören. Mit der Zeit machen diese kleinen Aktionen Besprechungen sicherer, menschlicher und viel effektiver.",
-                
-                // Modal content - Bloom
-                bloomTitle: "🎧 Psychologische Sicherheit in Bloom",
-                bloomDesc1: "Erweitern Sie Ihr Wissen über psychologische Sicherheit mit unseren Ressourcen und Kursen in Bloom.",
-                bloomClick: "Klicken Sie, um auf die Ressourcen zuzugreifen",
-                bloomDesc2: "Entdecken Sie Tools, Kurse und Ressourcen, um Räume zu schaffen, in denen sich alle sicher fühlen, Ideen auszutauschen und aus Fehlern zu lernen.",
-                
-                // Notifications
-                translationComplete: "✅ Übersetzung abgeschlossen",
-                voiceReaderActivated: "🔊 Sprachausgabe aktiviert",
-                voiceReaderDeactivated: "🔊 Sprachausgabe deaktiviert",
-                musicActivated: "🎵 Ambient-Musik aktiviert",
-                musicStopped: "🎵 Musik gestoppt",
-                cardCopied: "✅ Kopiert: ",
-                errorCopying: "❌ Fehler beim Kopieren",
-                cardsShuffled: "🔀 Karten gemischt",
-                recognitionAdded: "✅ Anerkennung hinzugefügt",
-                errorSaving: "❌ Fehler beim Speichern",
-                deleted: "🗑️ Gelöscht",
-                errorDeleting: "❌ Fehler beim Löschen",
-                breathing: "🧘 Atmen... Einatmen... Ausatmen...",
-                
-                // Voice messages
-                voiceWelcome: "Sprachausgabe aktiviert. Takeda Virtuelles Psychologisches Sicherheits-Kit. Verwenden Sie die Pfeiltasten oder Tab, um zwischen Elementen zu navigieren. Drücken Sie die Eingabetaste, um ein beliebiges Element zu hören.",
-                voiceMeetingPhase: "Abschnitt: Besprechungsphase. Hier können Sie auswählen, in welchem Moment der Besprechung Sie sich befinden: Start, Während oder Abschluss.",
-                voiceColorCards: "Abschnitt: Farbkarten. Verwenden Sie diese Karten, um Ihren Zustand auszudrücken, ohne zu unterbrechen: Grün für Zuhören, Gelb für Fragen, Orange für Umformulieren.",
-                voiceQuickActions: "Abschnitt: Schnellaktionen. Hier finden Sie Tools wie Atempause, Der Leuchtturm und Zugang zum Bloom-Kurs.",
-                voiceTruthCards: "Abschnitt: Wahrheitskarten. Kleine Sätze für große Gespräche. Klicken Sie auf eine beliebige Karte, um sie zu kopieren.",
-                voiceRecognition: "Abschnitt: Anerkennungsboard. Schreiben Sie Dankesworte, um das Teamvertrauen zu stärken."
-            },
             ja: {
                 // Main page elements
-                title: "🧠 バーチャル心理的安全キット - 武田薬品",
-                subtitle: "小さなジェスチャーが大きな会話を生む",
-                boatText: "安全な会話へ共に航海する",
+                title: "🧠 心理的安全性キット",
+                subtitle: "大きな会話のための小さなジェスチャー",
+                boatText: "より安全な会話へ共に航海する",
                 phaseTitle: "📍 会議のフェーズ",
-                phaseDesc: "一度にすべてを使う必要はありません — チームがその日に必要とするものを選んでください",
+                phaseDesc: "一度にすべてを使用する必要はありません — チームがその日に必要とするものを選択してください",
                 phaseStart: "🟢 開始",
                 phaseDuring: "🟡 途中",
                 phaseEnd: "🔵 終了",
                 colorCardsTitle: "🌈 カラーカード",
-                colorCardsDesc: "中断せずに何かを言いたいですか？カードを使用して会話をスムーズかつ尊重されたものに保ちましょう",
+                colorCardsDesc: "中断せずに何かを言いたいですか？カードを使用して会話をスムーズかつ尊重して保ちましょう",
                 greenCard: "緑",
                 greenDesc: "注意深く聞いています",
                 yellowCard: "黄",
                 yellowDesc: "質問があります",
-                orangeCard: "橙",
+                orangeCard: "オレンジ",
                 orangeDesc: "これを言い換えましょう",
                 quickActions: "⚡ クイックアクション",
-                breathBtn: "🧘 呼吸のポーズ",
+                breathBtn: "🧘 呼吸ポーズ",
                 faroBtn: "🌟 灯台 - あなたのガイド",
                 bloomBtn: "📱 Bloomコース",
                 truthCardsTitle: "🃏 真実のカード",
@@ -1020,182 +709,77 @@
                 addBtn: "追加 💚",
                 deleteBtn: "🗑️ 削除",
                 closeBtn: "閉じる",
-                noRecognitions: "まだ承認はありません。最初になってください！",
+                noRecognitions: "まだ承認はありません。最初の人になってください！",
                 
                 // Questions
                 q1: "今日の気分はどうですか？",
-                q2: "今週、あなたを笑顔にした小さなことは何ですか？",
+                q2: "今週あなたを笑顔にした小さなことは何ですか？",
                 q3: "私たちの会議の目的は何ですか？",
                 q4: "すべての視点を聞きましたか？",
-                q5: "私たちは理解し合えていますか？",
+                q5: "私たちは理解されていますか？",
                 q6: "よりよく理解するために例が必要ですか？",
                 q7: "この会話から得たアイデアは何ですか？",
                 q8: "今日の聞き方について何を評価しますか？",
                 q9: "前進するためにどのようなタスクを持ち帰りますか？",
                 
                 // Breathing section
-                breathTitle: "🧘 呼吸のポーズ",
-                breathText: "深く吸い込んで... ゆっくり吐き出して...",
+                breathTitle: "🧘 呼吸ポーズ",
+                breathText: "深く吸い込んで...ゆっくり吐き出して...",
                 breathDesc: "エネルギーを集中させるために少し時間を取ってください",
                 
                 // Modal content - Faro
-                faroTitle: "🌟 灯台：安全な空間を作るためのガイド",
+                faroTitle: "🌟 灯台：安全な空間を作るためのあなたのガイド",
                 faroWhatIsTitle: "灯台とは何ですか？",
-                faroWhatIsDesc: "これは、キットが存在する理由、その使用方法、そして各要素がグループの心理的安全をケアするのにどのように役立つかを思い出すのに役立つ小さなガイドです。",
-                faroWhyTitle: "💬 なぜこのキットが存在するのですか？",
-                faroWhyDesc1: "武田薬品では、心理的安全は大きなスピーチから生まれるのではなく、小さなジェスチャーから生まれると信じているからです：どのように聞くか、どのように質問するか、そしてどのように他の人のアイデアにスペースを与えるか。",
+                faroWhatIsDesc: "これは、キットが存在する理由、その使用方法、そして各要素がグループの心理的安全性をケアするのにどのように役立つかを思い出すのに役立つ小さなガイドです。",
+                faroWhyTitle: "💬 なぜこのキットは存在するのですか？",
+                faroWhyDesc1: "武田では、心理的安全性は大きなスピーチから生まれるのではなく、小さなジェスチャーから生まれると信じているからです：どのように聞くか、どのように質問するか、そしてどのように他の人のアイデアにスペースを与えるか。",
                 faroWhyDesc2: "このキットは、それらの瞬間にあなたに同行し、信頼を強化し、誰もが自由、尊重、平穏を持って話せる会議を作るためにここにあります。",
                 faroContainsTitle: "🎁 何が含まれていますか？",
                 faroContainsDesc: "各要素には特別な目的があります：",
-                faroColorCardsItem: "<strong>🌈 カラーカード</strong><br>中断せずに何かを言いたいですか？カードを使用してください。会話をスムーズかつ尊重されたものに保つのに役立ちます。",
+                faroColorCardsItem: "<strong>🌈 カラーカード</strong><br>中断せずに何かを言いたいですか？カードを使用してください。会話をスムーズかつ尊重して保つのに役立ちます。",
                 faroTruthCardsItem: "<strong>💌 真実のカード</strong><br>チームが反省や共感を必要としていると感じますか？カードを選んでください：それぞれが感情から考え、つながることを促します。",
-                faroRecognitionItem: "<strong>⭐ 承認ボード</strong><br>感謝の気持ちで締めくくりたいですか？会議中に気づいた感謝の気持ちやポジティブなことを書いてください。認めることは信頼を強化します！",
-                faroBloomItem: "<strong>📱 Bloom QRカード</strong><br>心理的安全についてさらに学び続けたいですか？スキャンして、より多くのリソースとアイデアを発見してください。",
-                faroBreathingItem: "<strong>🧘 呼吸のポーズ</strong><br>始める前に呼吸する時間が必要ですか？ガイド付き呼吸ポーズを使用して、開始をマークし、仮想空間でのグループのエネルギーを集中させてください。",
+                faroRecognitionItem: "<strong>⭐ 承認ボード</strong><br>感謝の気持ちで締めくくりたいですか？感謝の気持ちや会議中に気づいた前向きなことを書いてください。認めることは信頼を強化します！",
+                faroBloomItem: "<strong>📱 Bloom QRカード</strong><br>心理的安全性についてさらに学び続けたいですか？それをスキャンして、より多くのリソースとアイデアを発見してください。",
+                faroBreathingItem: "<strong>🧘 呼吸ポーズ</strong><br>始める前に呼吸する時間が必要ですか？ガイド付き呼吸ポーズを使用して、開始をマークし、仮想空間でのグループのエネルギーを集中させます。",
                 faroHowTitle: "🪄 どのように使用しますか？",
-                faroHowDesc: "このキットは実際の会議用に作られています：短く、多くのアイデアがあり、時間が少ない。<br>一度にすべてを使用する必要はありません — チームがその日に必要とするものを選んでください —。",
+                faroHowDesc: "このキットは実際の会議用に作られています：短く、多くのアイデアと少ない時間。<br>一度にすべてを使用する必要はありません — チームがその日に必要とするものを選択してください。",
                 faroStartTitle: "💭 会議を始めますか？",
-                faroStartDesc: "雰囲気を作り出してください。呼吸のポーズを使用して開始をマークし、質問や感情を含むカードを選んでください。",
+                faroStartDesc: "雰囲気を作り出します。呼吸ポーズを使用して開始をマークし、質問や感情を含むカードを選択します。",
                 faroDuringTitle: "👂 会話の最中ですか？",
-                faroDuringDesc: "カラーカードや真実のカードを頼りにしてください。これらは、調和を壊すことなく、表現したり、発言を求めたり、アイデアを明確にしたりするのに役立ちます。",
+                faroDuringDesc: "カラーカードや真実のカードを頼りにしてください。それらは、調和を壊すことなく、表現したり、発言を求めたり、アイデアを明確にしたりするのに役立ちます。",
                 faroEndTitle: "💖 締めくくる時ですか？",
-                faroEndDesc: "誰かに感謝したり、何かポジティブなことを認めたりするために1分間取ってください。ボードや終了カードを使用して、学んだことを振り返ってください。",
+                faroEndDesc: "誰かに感謝したり、前向きなことを認めたりするために1分ほど時間を取ってください。ボードや終了カードを使用して、学んだことを振り返ります。",
                 faroRememberTitle: "💡 覚えておいてください",
                 faroRememberDesc: "キットを使用することは、働き方を変えることではなく、お互いの聞き方を改善することです。時間の経過とともに、これらの小さな行動により、会議はより安全で、より人間的で、はるかに効果的になります。",
                 
                 // Modal content - Bloom
-                bloomTitle: "🎧 Bloomでの心理的安全",
-                bloomDesc1: "Bloomのリソースとコースで心理的安全に関する知識を広げてください。",
-                bloomClick: "リソースにアクセスするにはクリック",
+                bloomTitle: "🎧 Bloomでの心理的安全性",
+                bloomDesc1: "Bloomのリソースとコースで心理的安全性に関する知識を広げてください。",
+                bloomClick: "リソースにアクセスするにはクリックしてください",
                 bloomDesc2: "アイデアを共有し、失敗から学ぶために誰もが安全だと感じる空間を作るためのツール、コース、リソースを発見してください。",
                 
                 // Notifications
                 translationComplete: "✅ 翻訳完了",
-                voiceReaderActivated: "🔊 音声リーダーが有効になりました",
-                voiceReaderDeactivated: "🔊 音声リーダーが無効になりました",
-                musicActivated: "🎵 環境音楽が有効になりました",
+                voiceReaderActivated: "🔊 音声リーダーがアクティブになりました",
+                voiceReaderDeactivated: "🔊 音声リーダーが非アクティブになりました",
+                musicActivated: "🎵 アンビエントミュージックがアクティブになりました",
                 musicStopped: "🎵 音楽が停止しました",
-                cardCopied: "✅ コピー済み：",
+                cardCopied: "✅ コピーしました：",
                 errorCopying: "❌ コピーエラー",
                 cardsShuffled: "🔀 カードをシャッフルしました",
                 recognitionAdded: "✅ 承認を追加しました",
                 errorSaving: "❌ 保存エラー",
-                deleted: "🗑️ 削除済み",
+                deleted: "🗑️ 削除しました",
                 errorDeleting: "❌ 削除エラー",
                 breathing: "🧘 呼吸... 吸い込む... 吐き出す...",
                 
                 // Voice messages
-                voiceWelcome: "音声リーダーが有効になりました。武田薬品バーチャル心理的安全キット。矢印キーまたはTabを使用して要素間を移動します。Enterを押して任意の要素を聞きます。",
+                voiceWelcome: "音声リーダーがアクティブになりました。心理的安全性キット。矢印キーまたはTabを使用して要素間を移動します。Enterを押して任意の要素を聞きます。",
                 voiceMeetingPhase: "セクション：会議のフェーズ。ここでは、会議のどの段階にいるかを選択できます：開始、途中、または終了。",
-                voiceColorCards: "セクション：カラーカード。これらのカードを使用して、中断せずに状態を表現します：緑は聞く、黄は質問、橙は言い換え。",
-                voiceQuickActions: "セクション：クイックアクション。ここでは、呼吸のポーズ、灯台、Bloomコースへのアクセスなどのツールを見つけます。",
+                voiceColorCards: "セクション：カラーカード。これらのカードを使用して、中断せずに状態を表現します：緑は聞く、黄は質問、オレンジは言い換え。",
+                voiceQuickActions: "セクション：クイックアクション。ここでは、呼吸ポーズ、灯台、Bloomコースへのアクセスなどのツールを見つけます。",
                 voiceTruthCards: "セクション：真実のカード。大きな会話のための小さなフレーズ。任意のカードをクリックしてコピーします。",
-                voiceRecognition: "セクション：承認ボード。チームの信頼を強化するために感謝の言葉を書いてください。"
-            },
-            zh: {
-                // Main page elements
-                title: "🧠 虚拟心理安全工具包 - 武田药品",
-                subtitle: "小举动成就大对话",
-                boatText: "共同驶向更安全的对话",
-                phaseTitle: "📍 会议阶段",
-                phaseDesc: "您不必一次性使用所有内容 — 选择团队当天需要的内容",
-                phaseStart: "🟢 开始",
-                phaseDuring: "🟡 进行中",
-                phaseEnd: "🔵 结束",
-                colorCardsTitle: "🌈 彩色卡片",
-                colorCardsDesc: "想在不打断的情况下说些什么？使用卡片保持对话流畅和尊重",
-                greenCard: "绿色",
-                greenDesc: "我正在认真倾听",
-                yellowCard: "黄色",
-                yellowDesc: "我有一个问题",
-                orangeCard: "橙色",
-                orangeDesc: "让我们重新表述这个",
-                quickActions: "⚡ 快速操作",
-                breathBtn: "🧘 呼吸暂停",
-                faroBtn: "🌟 灯塔 - 您的指南",
-                bloomBtn: "📱 Bloom课程",
-                truthCardsTitle: "🃏 真相卡片",
-                truthCardsDesc: "小短语成就大对话。点击复制到剪贴板",
-                btnAll: "📚 查看全部",
-                btnCurrent: "🎯 当前阶段",
-                btnShuffle: "🔀 洗牌",
-                recognitionTitle: "💌 认可板",
-                recognitionDesc: "在会议结束时，写一个小感谢。小举动增强信任和团队精神。",
-                recognitionPlaceholder: '例如："感谢耐心倾听"',
-                addBtn: "添加 💚",
-                deleteBtn: "🗑️ 删除",
-                closeBtn: "关闭",
-                noRecognitions: "还没有任何认可。成为第一个吧！",
-                
-                // Questions
-                q1: "我们今天感觉如何？",
-                q2: "这周有什么小事让你微笑？",
-                q3: "我们会议的目标是什么？",
-                q4: "我们听取了所有观点吗？",
-                q5: "我们是否在互相理解？",
-                q6: "我们需要一个例子来更好地理解吗？",
-                q7: "我从这次对话中得到了什么想法？",
-                q8: "我们如何欣赏今天的倾听方式？",
-                q9: "我们带走了哪些任务来继续前进？",
-                
-                // Breathing section
-                breathTitle: "🧘 呼吸暂停",
-                breathText: "深吸气... 慢慢呼气...",
-                breathDesc: "花点时间集中精力",
-                
-                // Modal content - Faro
-                faroTitle: "🌟 灯塔：创建安全空间的指南",
-                faroWhatIsTitle: "什么是灯塔？",
-                faroWhatIsDesc: "这是一个小指南，帮助您记住工具包存在的原因、如何使用它，以及每个元素如何帮助您照顾团队的心理安全。",
-                faroWhyTitle: "💬 为什么存在这个工具包？",
-                faroWhyDesc1: "因为在武田，我们相信心理安全不是来自大演讲，而是来自小举动：我们如何倾听，如何提问，以及如何给他人的想法空间。",
-                faroWhyDesc2: "这个工具包在这里陪伴您度过那些时刻，增强信任，并创建每个人都可以自由、尊重和平静地发言的会议。",
-                faroContainsTitle: "🎁 它包含什么？",
-                faroContainsDesc: "每个元素都有特殊目的：",
-                faroColorCardsItem: "<strong>🌈 彩色卡片</strong><br>想在不打断的情况下说些什么？使用卡片。它们有助于保持对话流畅和尊重。",
-                faroTruthCardsItem: "<strong>💌 真相卡片</strong><br>觉得您的团队需要反思或共情？选择一张卡片：每张都邀请从情感出发思考和连接。",
-                faroRecognitionItem: "<strong>⭐ 认可板</strong><br>想以感激结束？写一个感谢或您在会议期间注意到的积极事情。认可增强信任！",
-                faroBloomItem: "<strong>📱 Bloom二维码卡片</strong><br>想继续学习心理安全吗？扫描它并发现更多资源和想法。",
-                faroBreathingItem: "<strong>🧘 呼吸暂停</strong><br>开始前需要呼吸片刻吗？使用引导呼吸暂停来标记开始，并将团队的能量集中在虚拟空间中。",
-                faroHowTitle: "🪄 如何使用？",
-                faroHowDesc: "这个工具包是为真实会议制作的：简短，有很多想法，时间很少。<br>您不必一次性使用所有内容 — 选择团队当天需要的内容 —。",
-                faroStartTitle: "💭 要开始会议吗？",
-                faroStartDesc: "营造氛围。使用呼吸暂停来标记开始，并选择一张带有问题或情感的卡片。",
-                faroDuringTitle: "👂 正在对话中吗？",
-                faroDuringDesc: "依靠彩色卡片或真相卡片。它们用于表达、请求发言或澄清想法，而不会破坏和谐。",
-                faroEndTitle: "💖 是时候结束了吗？",
-                faroEndDesc: "花一分钟感谢或认可积极的事情。使用板或结束卡片来反思所学内容。",
-                faroRememberTitle: "💡 记住",
-                faroRememberDesc: "使用工具包不是改变工作方式，而是改善我们倾听彼此的方式。随着时间的推移，这些小行动使会议更安全、更人性化、更有效。",
-                
-                // Modal content - Bloom
-                bloomTitle: "🎧 Bloom中的心理安全",
-                bloomDesc1: "通过我们在Bloom中的资源和课程扩展您关于心理安全的知识。",
-                bloomClick: "点击访问资源",
-                bloomDesc2: "发现工具、课程和资源，以创建每个人都感到安全分享想法并从错误中学习的空间。",
-                
-                // Notifications
-                translationComplete: "✅ 翻译完成",
-                voiceReaderActivated: "🔊 语音阅读器已激活",
-                voiceReaderDeactivated: "🔊 语音阅读器已停用",
-                musicActivated: "🎵 环境音乐已激活",
-                musicStopped: "🎵 音乐已停止",
-                cardCopied: "✅ 已复制：",
-                errorCopying: "❌ 复制错误",
-                cardsShuffled: "🔀 卡片已洗牌",
-                recognitionAdded: "✅ 已添加认可",
-                errorSaving: "❌ 保存错误",
-                deleted: "🗑️ 已删除",
-                errorDeleting: "❌ 删除错误",
-                breathing: "🧘 呼吸... 吸气... 呼气...",
-                
-                // Voice messages
-                voiceWelcome: "语音阅读器已激活。武田虚拟心理安全工具包。使用箭头键或Tab在元素之间导航。按Enter键收听任何元素。",
-                voiceMeetingPhase: "部分：会议阶段。在这里，您可以选择您处于会议的哪个时刻：开始、进行中或结束。",
-                voiceColorCards: "部分：彩色卡片。使用这些卡片在不打断的情况下表达您的状态：绿色用于倾听，黄色用于提问，橙色用于重新表述。",
-                voiceQuickActions: "部分：快速操作。在这里，您会找到诸如呼吸暂停、灯塔和访问Bloom课程等工具。",
-                voiceTruthCards: "部分：真相卡片。小短语成就大对话。点击任何卡片进行复制。",
-                voiceRecognition: "部分：认可板。写感谢词以增强团队信任。"
+                voiceRecognition: "セクション：承認ボード。チームの信頼を強化するために感謝の気持ちを書いてください。"
             }
         };
 
@@ -1216,11 +800,7 @@
             const langMap = {
                 'es': 'es-ES',
                 'en': 'en-US',
-                'pt': 'pt-BR',
-                'fr': 'fr-FR',
-                'de': 'de-DE',
-                'ja': 'ja-JP',
-                'zh': 'zh-CN'
+                'ja': 'ja-JP'
             };
             return langMap[lang] || 'es-ES';
         }
@@ -1232,12 +812,34 @@
             cierre: '🔵 Cierre' 
         };
         
+        // Questions object - will be updated when language changes
+        let questions = {
+            inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
+            durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
+            cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
+        };
+        
+        let currentPhase = 'inicio', cardDisplayMode = 'all';
+        
+        // Función auxiliar para obtener texto traducido
+        function getTranslatedText(key) {
+            const currentLang = currentLanguage.split('-')[0];
+            const t = translations[currentLang] || translations.es;
+            return t[key] || key;
+        }
+        
+        // Función auxiliar para mostrar notificaciones traducidas
+        function showTranslatedNotification(key) {
+            const text = getTranslatedText(key);
+            showNotification(text);
+        }
+        
         function translatePage(lang) {
             const t = translations[lang];
             if (!t) return;
             
             playSound('click');
-            showNotification(t.translationComplete || '✅ Translation completed');
+            showNotification(t.translationComplete);
             
             // Update selected option
             document.querySelectorAll('.language-option').forEach(opt => {
@@ -1253,15 +855,15 @@
             document.querySelector('.subtitle').textContent = t.subtitle;
             document.querySelector('.boat-text').textContent = t.boatText;
             
-            // Phase section - FIXED: Translate the colored phase buttons
+            // Phase section
             document.querySelector('.meeting-phase h2').textContent = t.phaseTitle;
             document.querySelector('.meeting-phase p').textContent = t.phaseDesc;
             
             // Update the colored phase buttons
             const phaseButtons = document.querySelectorAll('.phase-btn');
-            phaseButtons[0].textContent = t.phaseStart; // Inicio/Start
-            phaseButtons[1].textContent = t.phaseDuring; // Durante/During  
-            phaseButtons[2].textContent = t.phaseEnd; // Cierre/Closing
+            phaseButtons[0].textContent = t.phaseStart;
+            phaseButtons[1].textContent = t.phaseDuring;
+            phaseButtons[2].textContent = t.phaseEnd;
             
             // Also update the phase labels used in question cards
             phaseLabels.inicio = t.phaseStart;
@@ -1307,10 +909,12 @@
                 btn.textContent = t.closeBtn;
             });
             
-            // Update questions
+            // Update questions - ¡ESTA ES LA PARTE MÁS IMPORTANTE!
             questions.inicio = [t.q1, t.q2, t.q3];
             questions.durante = [t.q4, t.q5, t.q6];
             questions.cierre = [t.q7, t.q8, t.q9];
+            
+            // Update questions display
             updateQuestions();
             
             // Update delete buttons
@@ -1396,16 +1000,27 @@
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = currentLanguage;
-                utterance.rate = 0.9; // Slightly slower for clarity
+                utterance.lang = currentLanguage; // Usar el idioma actual
+                utterance.rate = 0.9;
                 utterance.pitch = 1;
                 utterance.volume = 0.8;
                 
-                // Try to find a voice in the current language
-                const voices = window.speechSynthesis.getVoices();
-                const matchingVoice = voices.find(voice => voice.lang.startsWith(currentLanguage.split('-')[0]));
-                if (matchingVoice) {
-                    utterance.voice = matchingVoice;
+                // Esperar a que las voces se carguen correctamente
+                function speakWithVoice() {
+                    const voices = window.speechSynthesis.getVoices();
+                    if (voices.length > 0) {
+                        // Buscar una voz que coincida con el idioma actual
+                        const matchingVoice = voices.find(voice => 
+                            voice.lang === currentLanguage || voice.lang.startsWith(currentLanguage.split('-')[0])
+                        );
+                        if (matchingVoice) {
+                            utterance.voice = matchingVoice;
+                        }
+                        window.speechSynthesis.speak(utterance);
+                    } else {
+                        // Si las voces no están cargadas, intentar de nuevo
+                        setTimeout(speakWithVoice, 100);
+                    }
                 }
                 
                 utterance.onend = function() {
@@ -1413,8 +1028,14 @@
                     if (icon) icon.classList.remove('speaking');
                 };
                 
+                utterance.onerror = function(event) {
+                    console.error('Speech synthesis error:', event);
+                    const icon = document.getElementById('voiceIcon');
+                    if (icon) icon.classList.remove('speaking');
+                };
+                
                 currentUtterance = utterance;
-                window.speechSynthesis.speak(utterance);
+                speakWithVoice();
                 
                 const icon = document.getElementById('voiceIcon');
                 if (icon) icon.classList.add('speaking');
@@ -1423,25 +1044,19 @@
         
         function toggleVoiceReader() {
             const icon = document.getElementById('voiceIcon');
+            const currentLang = currentLanguage.split('-')[0];
+            const t = translations[currentLang] || translations.es;
             
             if (!isVoiceReading) {
                 isVoiceReading = true;
                 icon.textContent = '🔇';
                 playSound('success');
-                showNotification(translations[currentLanguage.split('-')[0]]?.voiceReaderActivated || '🔊 Voice reader activated');
                 
-                // Read welcome message
-                const welcomeMessages = {
-                    'es-ES': translations.es.voiceWelcome,
-                    'en-US': translations.en.voiceWelcome,
-                    'pt-BR': translations.pt.voiceWelcome,
-                    'fr-FR': translations.fr.voiceWelcome,
-                    'de-DE': translations.de.voiceWelcome,
-                    'ja-JP': translations.ja.voiceWelcome,
-                    'zh-CN': translations.zh.voiceWelcome
-                };
+                // Usar la notificación traducida
+                showNotification(t.voiceReaderActivated);
                 
-                speakText(welcomeMessages[currentLanguage] || translations.es.voiceWelcome);
+                // Leer mensaje de bienvenida en el idioma correcto
+                speakText(t.voiceWelcome);
                 
                 // Add click listeners to readable content
                 enableVoiceReading();
@@ -1451,7 +1066,9 @@
                 icon.classList.remove('speaking');
                 window.speechSynthesis.cancel();
                 playSound('click');
-                showNotification(translations[currentLanguage.split('-')[0]]?.voiceReaderDeactivated || '🔊 Voice reader deactivated');
+                
+                // Usar la notificación traducida
+                showNotification(t.voiceReaderDeactivated);
                 
                 // Remove click listeners
                 disableVoiceReading();
@@ -1474,11 +1091,11 @@
                 if (!element.getAttribute('aria-label-original')) {
                     let description = element.textContent.trim();
                     if (element.classList.contains('question-card')) {
-                        description = 'Carta de la verdad: ' + description;
+                        description = getTranslatedText('truthCardsTitle') + ': ' + description;
                     } else if (element.classList.contains('voice-card')) {
-                        description = 'Tarjeta de color: ' + description;
+                        description = getTranslatedText('colorCardsTitle') + ': ' + description;
                     } else if (element.classList.contains('phase-btn')) {
-                        description = 'Fase de reunión: ' + description;
+                        description = getTranslatedText('phaseTitle') + ': ' + description;
                     } else if (element.tagName === 'H1') {
                         description = 'Título principal: ' + description;
                     } else if (element.tagName === 'H2') {
@@ -1677,13 +1294,13 @@
                 createBackgroundMusic();
                 icon.classList.add('playing');
                 icon.textContent = '🔇';
-                showNotification(t.musicActivated || '🎵 Ambient music activated');
+                showNotification(t.musicActivated);
                 playSound('success');
             } else {
                 stopBackgroundMusic();
                 icon.classList.remove('playing');
                 icon.textContent = '🎵';
-                showNotification(t.musicStopped || '🎵 Music stopped');
+                showNotification(t.musicStopped);
                 playSound('click');
             }
         }
@@ -1744,19 +1361,11 @@
             }
         }
         
-        const questions = {
-            inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
-            durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
-            cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
-        };
-        
-        let currentPhase = 'inicio', cardDisplayMode = 'all';
-        
         document.addEventListener('DOMContentLoaded', function() {
             // Load saved language preference or detect browser language
             const savedLanguage = localStorage.getItem('takedaLanguage');
             const browserLang = navigator.language.substring(0, 2);
-            const supportedLangs = ['es', 'en', 'pt', 'fr', 'de', 'ja', 'zh'];
+            const supportedLangs = ['es', 'en', 'ja'];
             
             let initialLang = 'es'; // Default to Spanish
             
@@ -1806,23 +1415,40 @@
                 card.className = `question-card ${q.phase}`;
                 const badge = document.createElement('div');
                 badge.className = `question-phase-badge ${q.phase}`;
-                badge.textContent = phaseLabels[q.phase]; // This now uses the translated labels
+                badge.textContent = phaseLabels[q.phase];
                 const text = document.createElement('div');
                 text.textContent = q.text;
                 text.style.paddingTop = '25px';
                 card.appendChild(badge);
                 card.appendChild(text);
-                card.onclick = () => { 
+                
+                card.onclick = (event) => { 
+                    // Permitir selección de texto sin copiar automáticamente
+                    // El usuario puede seleccionar y copiar manualmente
+                };
+
+                // Agregar doble clic para copiar automáticamente
+                card.ondblclick = (event) => {
+                    event.preventDefault();
                     playSound('click');
                     const currentLang = currentLanguage.split('-')[0];
                     const t = translations[currentLang] || translations.es;
                     
                     navigator.clipboard.writeText(q.text).then(() => {
-                        showNotification(t.cardCopied + q.text.substring(0, 30) + '...');
+                        const notificationText = t.cardCopied + q.text.substring(0, 30) + '...';
+                        showNotification(notificationText);
+                        
+                        if (isVoiceReading) {
+                            speakText(notificationText);
+                        }
                     }).catch(() => {
-                        showNotification(t.errorCopying || '❌ Error copying');
+                        showNotification(t.errorCopying);
+                        if (isVoiceReading) {
+                            speakText(t.errorCopying);
+                        }
                     });
                 };
+                
                 container.appendChild(card);
             });
         }
@@ -1838,9 +1464,7 @@
             container.innerHTML = '';
             cards.forEach(card => container.appendChild(card));
             
-            const currentLang = currentLanguage.split('-')[0];
-            const t = translations[currentLang] || translations.es;
-            showNotification(t.cardsShuffled || '🔀 Cards shuffled');
+            showTranslatedNotification('cardsShuffled');
         }
         
         async function loadRecognitions() {
@@ -1857,9 +1481,10 @@
         
         function displayRecognitions(items) {
             const list = document.getElementById('recognitionList');
+            const currentLang = currentLanguage.split('-')[0];
+            const t = translations[currentLang] || translations.es;
+            
             if (items.length === 0) {
-                const currentLang = currentLanguage.split('-')[0];
-                const t = translations[currentLang] || translations.es;
                 list.innerHTML = `<div style="text-align:center;padding:20px;font-style:italic;">${t.noRecognitions}</div>`;
                 return;
             }
@@ -1872,7 +1497,7 @@
                 text.textContent = item.emoji + ' "' + item.text + '"';
                 const btn = document.createElement('button');
                 btn.className = 'delete-btn';
-                btn.textContent = '🗑️ Eliminar';
+                btn.textContent = t.deleteBtn;
                 btn.onclick = () => {
                     playSound('delete');
                     deleteRecognition(index);
@@ -1912,16 +1537,12 @@
                 input.value = '';
                 playSound('success');
                 
-                const currentLang = currentLanguage.split('-')[0];
-                const t = translations[currentLang] || translations.es;
-                showNotification(t.recognitionAdded || '✅ Recognition added');
+                showTranslatedNotification('recognitionAdded');
                 
                 // Refresh the list
                 loadRecognitions();
             } catch (e) {
-                const currentLang = currentLanguage.split('-')[0];
-                const t = translations[currentLang] || translations.es;
-                showNotification(t.errorSaving || '❌ Error saving');
+                showTranslatedNotification('errorSaving');
                 console.error('Error:', e);
             } finally {
                 btn.disabled = false;
@@ -1940,16 +1561,12 @@
                 // Save back to localStorage
                 localStorage.setItem('takedaRecognitions', JSON.stringify(items));
                 
-                const currentLang = currentLanguage.split('-')[0];
-                const t = translations[currentLang] || translations.es;
-                showNotification(t.deleted || '🗑️ Deleted');
+                showTranslatedNotification('deleted');
                 
                 // Refresh the list
                 loadRecognitions();
             } catch (e) {
-                const currentLang = currentLanguage.split('-')[0];
-                const t = translations[currentLang] || translations.es;
-                showNotification(t.errorDeleting || '❌ Error deleting');
+                showTranslatedNotification('errorDeleting');
                 console.error('Error:', e);
             }
         }
@@ -1958,8 +1575,22 @@
             playSound('click');
             document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-            const msgs = { green: '🟢 Escuchando atentamente', yellow: '🟡 Tengo una pregunta', orange: '🟠 Reformulemos esto' };
+            
+            const currentLang = currentLanguage.split('-')[0];
+            const t = translations[currentLang] || translations.es;
+            
+            const msgs = {
+                green: t.greenCard + ': ' + t.greenDesc,
+                yellow: t.yellowCard + ': ' + t.yellowDesc,
+                orange: t.orangeCard + ': ' + t.orangeDesc
+            };
+            
             showNotification(msgs[color]);
+            
+            // También hablar la descripción
+            if (isVoiceReading) {
+                speakText(msgs[color]);
+            }
         }
         
         function activateBreathing() {
@@ -1969,9 +1600,7 @@
             effect.classList.add('active');
             message.classList.add('active');
             
-            const currentLang = currentLanguage.split('-')[0];
-            const t = translations[currentLang] || translations.es;
-            showNotification(t.breathing || '🧘 Breathe... Inhale... Exhale...');
+            showTranslatedNotification('breathing');
             
             setTimeout(() => {
                 effect.classList.remove('active');
@@ -2006,5 +1635,3 @@
     </script>
 </body>
 </html>
-
-
