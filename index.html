@@ -1569,12 +1569,14 @@
             });
         }
         
+        // FIXED: This function now reads the displayed text content instead of the original Spanish
         function handleVoiceClick(event) {
             if (isVoiceReading) {
-                const ariaLabel = this.getAttribute('aria-label');
-                const text = ariaLabel || this.textContent.trim();
-                if (text) {
-                    speakText(text);
+                // Always read the currently displayed text content (this will use translated text)
+                const textToRead = this.textContent.trim();
+                
+                if (textToRead) {
+                    speakText(textToRead);
                     playSound('click');
                     
                     // Visual feedback
@@ -1812,14 +1814,18 @@
             questionsToShow.forEach(q => {
                 const card = document.createElement('div');
                 card.className = `question-card ${q.phase}`;
+                
                 const badge = document.createElement('div');
                 badge.className = `question-phase-badge ${q.phase}`;
-                badge.textContent = phaseLabels[q.phase]; // This now uses the translated labels
+                badge.textContent = phaseLabels[q.phase];
+                
                 const text = document.createElement('div');
                 text.textContent = q.text;
                 text.style.paddingTop = '25px';
+                
                 card.appendChild(badge);
                 card.appendChild(text);
+                
                 card.onclick = () => { 
                     playSound('click');
                     const currentLang = currentLanguage.split('-')[0];
@@ -1831,8 +1837,16 @@
                         showNotification(t.errorCopying || '❌ Error copying');
                     });
                 };
+                
                 container.appendChild(card);
             });
+            
+            // Re-enable voice reading if it's active
+            if (isVoiceReading) {
+                setTimeout(() => {
+                    enableVoiceReading();
+                }, 100);
+            }
         }
         
         function shuffleCards() {
